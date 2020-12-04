@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TEPROLIN Web Service</title>
+<style>
+span.code {
+  font-family: "Courier New";
+}
+
+code.radustyle {
+  background-color: Lavender;
+  font-size: 120%;
+  margin-left: 25px;
+}
+</style>
+</head>
+
+<body>
+<h1>The TEPROLIN Web Service</h1>
+<h3>Radu Ion (<span class="code">radu@racai.ro</span>)</h3>
+
+<h2>Introduction</h2>
+<p>The TEPROLIN Web Service (WS) was developed and is maintained in the <a href="http://www.racai.ro/p/reterom/">ReTeRom project</a>. The backend is the TEPROLIN text preprocessing platform that incorporates several NLP applications for which it provides a unified access interface as a <a href="https://www.python.org/download/releases/3.0/">Python 3</a> object.</p>
+<p>TEPROLIN currently offers 15 text preprocessing operations for Romanian, 13 of which are described in (Ion, 2018). These are:</p>
+<ol style="font-family: &quot;Courier New&quot">
+  <b>
+  <li>text-normalization</li>
+  <li>diacritics-restoration</li>
+  <li>word-hyphenation</li>
+  <li>word-stress-identification</li>
+  <li>word-phonetic-transcription</li>
+  <li>numeral-rewriting</li>
+  <li>abbreviation-rewriting</li>
+  <li>sentence-splitting</li>
+  <li>tokenization</li>
+  <li>pos-tagging</li>
+  <li>lemmatization</li>
+  <li>named-entity-recognition<div style="display: inline-block; position: absolute;"><img style="max-width: 40px; max-height: 40px; top: -25px; position: relative" src="images/new.png" alt="TEPROLIN new"></div></li>
+  <li>biomedical-named-entity-recognition<div style="display: inline-block; position: absolute;"><img style="max-width: 40px; max-height: 40px; top: -25px; position: relative" src="images/new.png" alt="TEPROLIN new"></div></li>  
+  <li>chunking</li>
+  <li>dependency-parsing</li>
+  </b>
+</ol>
+
+<h2>Configuration options</h2>
+<p>The <span class="code">GET</span> queries will request for configuration information. Assuming that the WS is running on <span class="code">http://127.0.0.1:5000</span>,</p>
+<code class="radustyle">
+<a href="https://curl.haxx.se/docs/manpage.html">curl</a> http://127.0.0.1:5000/operations
+</code>
+<p>will return a <a href="https://www.json.org/">JSON</a> object with the list of 15 operations mentioned above:</p>
+<img style="margin-left: 50px;" src="images/curl-operations.png" alt="TEPROLIN supported ops"/>
+<p>A <span class="code">GET</span> request with one of the TEPROLIN's operations, e.g.</p>
+<code class="radustyle">
+<a href="https://curl.haxx.se/docs/manpage.html">curl</a> http://127.0.0.1:5000/apps/pos-tagging
+</code>
+<p>will return the JSON object with the list of the NLP apps that can perform it:</p>
+<img style="margin-left: 50px;" src="images/curl-apps.png" alt="TEPROLIN apps for pos-tagging"/>
+<p><b>The first NLP app is the default app to execute the operation</b>. In the example above, <span class="code">pos-tagging</span> is executed with <span class="code">nlp-cube-adobe</span>.</p>
+<p>Here is <b>the complete list of NLP apps</b> that TEPROLIN currently incorporates, for each operation:</p>
+<ol>
+  <li style="font-family: &quot;Courier New&quot"><b>text-normalization</b></li>
+    <ol>
+      <li><span class="code"><b>tnorm-icia</b></span>: an in-house developed Python 3 class that replaces old Romanian diacritics (ş and ţ) with their new variants (ș and ț), removes multiple spaces and normalizes the dash chars.</li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>diacritics-restoration</b></li>
+    <ol>
+      <li><span class="code"><b>diac-restore-icia</b></span>: an in-house developed diacritic restoration algorithm based on word n-grams and Viterbi decoding. Developed by <a href="https://ro.linkedin.com/in/tiberiu-boros-68913854">Tiberiu Boroș</a> in Java, it has been ported to Python 3 and included in TEPROLIN.</li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>word-hyphenation</b></li>
+    <ol>
+      <li><span class="code"><b>tts-utcluj</b></span>: developed in Python 3 by <a href="https://www.sciencedirect.com/science/article/abs/pii/S0167639310002074">Stan et al. (2011)</a>. More information on <a href="http://romaniantts.com/">http://romaniantts.com/</a>.</li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>word-stress-identification</b></li>
+    <ol>
+      <li><span class="code"><b>tts-utcluj</b></span></li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>word-phonetic-transcription</b></li>
+    <ol>
+      <li><span class="code"><b>tts-utcluj</b></span></li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>numeral-rewriting</b></li>
+    <ol>
+      <li><span class="code"><b>expander-utcluj</b></span>: see the references for <span class="code"><b>tts-utcluj</b></span>. </li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>abbreviation-rewriting</b></li>
+    <ol>
+      <li><span class="code"><b>expander-utcluj</b></span></li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>sentence-splitting</b></li>
+    <ol>
+      <li><span class="code"><b>ttl-icia</b></span>: provided by the <a href="http://www.racai.ro/media/WSD.pdf">TTL</a> Perl module (Ion, 2007).</li>
+      <li><span class="code"><b>nlp-cube-adobe</b></span>: provided by the <a href="https://github.com/adobe/NLP-Cube">NLP-Cube</a> Python 3 module (Boroș et al., 2018).</li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>tokenization</b></li>
+    <ol>
+      <li><span class="code"><b>ttl-icia</b></span></li>
+      <li><span class="code"><b>nlp-cube-adobe</b></span></li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>pos-tagging</b></li>
+    <ol>
+      <li><span class="code"><b>ttl-icia</b></span></li>
+      <li><span class="code"><b>nlp-cube-adobe</b></span></li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>lemmatization</b></li>
+    <ol>
+      <li><span class="code"><b>ttl-icia</b></span></li>
+      <li><span class="code"><b>nlp-cube-adobe</b></span></li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>named-entity-recognition</b></li>
+    <ol>
+      <li><span class="code"><b>ner-icia</b></span>: provided by the web service developed by Vasile Păiș, available in this <a href="http://89.38.230.23/ner/">NER interface</a>.</li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>biomedical-named-entity-recognition</b></li>
+    <ol>
+      <li><span class="code"><b>bioner-icia</b></span>: provided by a previous version of the <a href="https://github.com/adobe/NLP-Cube">NLP-Cube</a> Python 3 module (Boroș et al., 2018).</li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>chunking</b></li>
+    <ol>
+      <li><span class="code"><b>ttl-icia</b></span></li>
+    </ol>
+  <li style="font-family: &quot;Courier New&quot"><b>dependency-parsing</b></li>
+    <ol>
+      <li><span class="code"><b>nlp-cube-adobe</b></span></li>
+    </ol>
+</ol>
+
+<h2>Annotating text</h2>
+<p>In order to annotate text, you will send <span class="code">POST</span> requests to the <span class="code">/process</span> URL. TEPROLIN is a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> WS, meaning that there is not any saving happening between requests. If you want to use a different NLP app for a given operation, you should send the configuration option along with the text to be processed. For a full list of what operations can be executed with what NLP apps, see the previous section.</p>
+<p>The <span class="code">POST</span> request is typed with the <span class="code">application/x-www-form-urlencoded</span> MIME type. The body of the request must contain only the following <span class="code">key=value</span> pairs, concatenated with the &amp; character:</p>
+<code class="radustyle">text=text to be annotated here...</code><p/>
+<code class="radustyle">&lt;operation&gt;=&lt;NLP app&gt;</code> (e.g. <span class="code">pos-tagging=ttl-icia</span>)<br/>
+and <br/>
+<code class="radustyle">exec=&lt;operation&gt;,&lt;operation&gt;,...</code>
+<p>If <span class="code">exec</span> is present, then the requested operations are performed in the proper order (the client need not bother with the order). TEPROLIN will infer the order of function calls and the modules to run such that the requested annotations are returned to the client. If <span class="code">exec</span> is not present, then the full processing chain is executed (all 15 operations).</p>
+<p>If any configuration option is present, then the specified operation(s) will be performed with the requested NLP app(s) (e.g. <span class="code">pos-tagging</span> is performed with the <span class="code">ttl-icia</span> NLP app).</p>
+<p>Finally, <span class="code">text</span> <b>is the only key that is required</b> and which contains the text to be processed.</p>
+<h3>The returned JSON object</h3>
+<p>TEPROLIN WS will respond with a JSON object containing two keys:
+<ul>
+  <li><span class="code">teprolin-conf</span>: contains the active configuration that produced the result, in the form of <span class="code">&lt;operation&gt;: &lt;NLP app&gt;</span> pairs;</li>
+  <li><span class="code">teprolin-result</span>: contains the text annotation or, if an error occurred, the error message. Enclosed, we find the following keys:
+    <ul>
+	  <li><span class="code">text</span>: is the text that has been normalized, including here the automatic insertion of diacritics;</li>
+	  <li><span class="code">sentences</span>: is the list of sentence strings that have been detected in <span class="code">text</span>;</li>
+	  <li><span class="code">tokenized</span>: contains the list of JSON objects for each token in each sentence. A JSON token has the following attributes:
+		<ul>
+		  <li><span class="code">_id</span>: the index of the token in the sentece, 1-based numbering;</li>
+		  <li><span class="code">_wordform</span>: the occurrence of the word in the sentence;</li>
+		  <li><span class="code">_ctg</span>: the corpus (reduced) POS tag of the word;</li>
+		  <li><span class="code">_msd</span>: the <a href="http://nl.ijs.si/ME/V4/msd/html/msd-ro.html">MSD</a> (full) POS tag of the word;</li>
+		  <li><span class="code">_lemma</span>: the lemma of the <span class="code">_wordform</span>;</li>
+		  <li><span class="code">_head</span>: the head of this token in the dependency analysis tree;</li>
+		  <li><span class="code">_deprel</span>: the name of the dependency relation between this token and its head;</li>
+		  <li><span class="code">_expand</span>: if the token is a number or an abbreviation, its expanded literal form is given here;</li>
+		  <li><span class="code">_chunk</span>: the chunk(s) in which the token is included;</li>
+		  <li><span class="code">_ner</span>: the named entity annotation of the token (one of the <span class="code">LOC</span>ation, <span class="code">PER</span>son or <span class="code">ORG</span>anization);</li>
+		  <li><span class="code">_bner</span>: the biomedical named entity <a href="https://en.wikipedia.org/wiki/Inside%E2%80%93outside%E2%80%93beginning_(tagging)">inside–outside–beginning annotation</a> of the token (one of the <span class="code">B-DISO|I-DISO</span>order, <span class="code">B-ANAT|I-ANAT</span>omy, <span class="code">B-PROC|I-PROC</span>edure or <span class="code">B-CHEM|I-CHEM</span>ical);</li>
+		  <li><span class="code">_phon</span>: the phonetic transcription of the <span class="code">_wordform</span>; phonemes are separated by '.';</li>
+		  <li><span class="code">_syll</span>: the syllables of the <span class="code">_wordform</span>; syllables are separated by '.' and the stressed syllable is marked with '.</li>
+		</ul>
+	  </li>
+	</ul>
+  </li>
+</ul>
+<p>For example, the output for the command</p>
+<code class="radustyle">
+<a href="https://curl.haxx.se/docs/manpage.html">curl</a> http://127.0.0.1:5000/process -d "text=Diabetul zaharat se remarca prin valori crescute ale concentratiei glucozei in sange." -d "exec=biomedical-named-entity-recognition"
+</code>
+<p>is the following:</p>
+<img style="margin-left: 50px;" src="images/teprolin-output.png" alt="TEPROLIN output"/>
+
+<h2>Getting statistics about platform usage</h2>
+<p>The TEPROLIN platform can offer statistics about the following types of events:</p>
+<ul>
+  <li>annotated <span class="code">tokens</span>: depending on the specified time interval, the number of annotated tokens is returned, for each time period;</li>
+  <li>received <span class="code">GET</span> or <span class="code">POST</span> <span class="code">requests</span>: the number of requests received by the platform.</li>
+</ul>
+<p>In order to get frequency information of the above-mentioned events, you will send <span class="code">GET</span> requests to the <span class="code">/stats</span> URL prefix. To obtain the full URL, you must append a statistics type (one of the <span class="code">tokens</span> or <span class="code">requests</span>), a time period (one of the <span class="code">year</span>, <span class="code">month</span> or <span class="code">day</span>) and a size of the history to retrieve, an integer.</p>
+<p>For example, to get a break-down of the number of tokens processed in the past 5 days (including the present day), you would query like this:</p>
+<code class="radustyle">
+<a href="https://curl.haxx.se/docs/manpage.html">curl</a> http://127.0.0.1:5000/stats/tokens/day/5
+</code>
+<p>In order to get the number of requests for the current month, send this query:</p>
+<code class="radustyle">
+<a href="https://curl.haxx.se/docs/manpage.html">curl</a> http://127.0.0.1:5000/stats/requests/month/1
+</code>
+<p>TEPROLIN will respond with a JSON object that contains the list of counts for the specified statistics type. For the first request, the response looks like this:</p>
+<img style="margin-left: 50px;" src="images/teprolin-stats.png" alt="TEPROLIN statistics"/>
+
+<h2>References</h2>
+<p><b>Boroș</b>, <b>Tiberiu</b> and Dumitrescu, Ștefan Daniel and Burtica, Ruxandra. (2018). <i>NLP-Cube: End-to-End Raw Text Processing With Neural Networks</i>. In Proceedings of the CoNLL 2018 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies, Association for Computational Linguistics. pp. 171--179. October 2018</p>
+<p><b>Ion</b>, <b>Radu</b>. (2018). <i>TEPROLIN: An Extensible, Online Text Preprocessing Platform for Romanian</i>. In Proceedings of the International Conference on Linguistic Resources and Tools for Processing Romanian Language (<b>ConsILR 2018</b>), November 22-23, 2018, Iași, România.</p>
+<p><b>Stan</b>, <b>Adriana</b> and Junichi YAMAGISHI and Simon KING and Matthew AYLETT. (2011). <i>The Romanian Speech Synthesis (RSS) corpus: building a high quality HMM-based speech synthesis system using a high sampling rate</i>. Speech Communication vol 53, pp. 442-450, 2011, doi: 10.1016/j.specom.2010.12.002</p>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Radu's files
+temp.txt
+ttl-debug-*.txt
+teprolin-stats.txt.lock
+ttl-port.txt.lock
+
+# Python
+__pycache__/
+.pytest_cache/
+*.pyc
+.vscode/
+bioner/__pycache__/
+cubenlp/__pycache__/
+diac/__pycache__/
+ner/__pycache__/
+tests/__pycache__/
+tnorm/__pycache__/
+ttl/__pycache__/
+ttsops/__pycache__/
+udpipe/__pycache__/
