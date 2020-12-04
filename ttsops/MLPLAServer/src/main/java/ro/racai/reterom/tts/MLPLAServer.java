@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -36,9 +35,10 @@ public class MLPLAServer {
 	private static final String MLPLA_CONF =
 			String.join(File.separator, Arrays.asList(System.getProperty("user.home"), ".teprolin",
 					"mlpla", "etc", "languagepipe.conf"));
-	private static final String EOT_COMMAND = "#EOT#";
-	private static final String EXT_COMMAND = "#EXIT#";
-	private static boolean DEBUG = true;
+	public static final String EOT_COMMAND = "#EOT#";
+	public static final String CLS_COMMAND = "#CLOSE#";
+	public static final String EXT_COMMAND = "#EXIT#";
+	private static final boolean DEBUG = true;
 
 	/**
 	 * Will call MLPLA to process the input {@code text}. It is {@code synchronized} because it does
@@ -103,19 +103,29 @@ public class MLPLAServer {
 								StandardCharsets.UTF_8));
 				String line = in.readLine();
 				StringBuilder text = new StringBuilder();
+				boolean serverExit = false;
 
 				while (line != null) {
-					if (line.equals(EXT_COMMAND)) {
-						if (DEBUG)
-							System.err.println("Received the 'exit' command. Bye!");
+					if (line.equals(CLS_COMMAND) || line.equals(EXT_COMMAND)) {
+						if (line.equals(EXT_COMMAND)) {
+							serverExit = true;
+
+							if (DEBUG)
+								System.err.println("Received the 'exit' command. Bye!");
+						}
+						else if (DEBUG) {
+							System.err.println("Received the 'close' command. Exit loop.");
+						}
 
 						break;
-					} else if (line.equals(EOT_COMMAND)) {
+					}
+					
+					if (line.equals(EOT_COMMAND)) {
 						String itext = text.toString();
 
 						if (DEBUG) {
 							System.err.println("Going to process ====================");
-							System.err.println(itext);
+							System.err.print(itext);
 							System.err.println("End sample ==========================");
 							System.err.flush();
 						}
@@ -123,28 +133,29 @@ public class MLPLAServer {
 						String otext = processText(itext);
 
 						if (DEBUG) {
-							System.err.println("MLPLA output ++++++++++++++++++++++++");
-							System.err.println(otext);
-							System.err.println("End output ++++++++++++++++++++++++++");
+							System.err.println("MLPLA output ========================");
+							System.err.print(otext);
+							System.err.println("End output ==========================");
 							System.err.flush();
 						}
 
 						out.println(otext);
-					}
-					while (!line.isBlank()) {
+						out.println(EOT_COMMAND);
+					} else if (!line.isBlank()) {
 						text.append(line + "\n");
 					}
 
 					line = in.readLine();
 				}
 
-				if (DEBUG)
-					System.err
-							.println("Client has closed the connection. Waiting for the next one.");
-
 				clientSocket.close();
+
+				if (serverExit) {
+					break;
+				}
+
 				clientSocket = serverSocket.accept();
-			} // end while true
+			} // end while accepting
 
 			serverSocket.close();
 		} catch (IOException ioe) {

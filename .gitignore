@@ -24,3 +24,7 @@ ttsops/MLPLAServer/.settings/org.eclipse.jdt.core.prefs
 ttsops/MLPLAServer/.settings/org.eclipse.m2e.core.prefs
 ttsops/MLPLAServer/.project
 ttsops/MLPLAServer/.classpath
+ttsops/MLPLAServer/input.txt
+ttsops/MLPLAServer/lts.graph
+ttsops/MLPLAServer/output.txt
+ttsops/MLPLAServer/target/
