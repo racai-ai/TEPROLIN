@@ -18,3 +18,9 @@ tnorm/__pycache__/
 ttl/__pycache__/
 ttsops/__pycache__/
 udpipe/__pycache__/
+ttsops/MLPLAServer/.settings/org.eclipse.core.resources.prefs
+ttsops/MLPLAServer/.settings/org.eclipse.jdt.apt.core.prefs
+ttsops/MLPLAServer/.settings/org.eclipse.jdt.core.prefs
+ttsops/MLPLAServer/.settings/org.eclipse.m2e.core.prefs
+ttsops/MLPLAServer/.project
+ttsops/MLPLAServer/.classpath

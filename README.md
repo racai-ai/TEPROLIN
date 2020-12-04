@@ -25,12 +25,21 @@ To make sure **TTL** works, issue the following commands in a `perl`-enabled com
 `pip3 install nlpcube`
 
 ### TTS Frontend
-This is the text-to-speech (TTS) pre-processor from [Romanian TTS](http://romaniantts.com/).
-Contact Adriana Stan (adriana.stan@com.utcluj.ro) about it. Issue the following for installation:
+SSLA is a Text-To-Speech library developed by Tiberiu Boroș et al.
+Read about it on [arXiv](https://arxiv.org/pdf/1802.05583.pdf). The source code can be found on GitHub at [SSLA](https://github.com/racai-ai/ssla).
+MLPLA is the text preprocessing front-end for SSLA and it is used in TEPROLIN for:
+- word hyphenation
+- word stress identification
+- phonetic transcription
 
-`pip3 install numpy==1.16.0 scipy==1.2.0`
+Additionally, we ported some code from our [ROBIN Dialog Manager project](https://github.com/racai-ai/ROBINDialog) to do numeral rewriting, also for the benefit of TTS tools.
+In order to run MLPLA, you need a recent (e.g. 14, 15) Java Runtime Engine installed and available in `PATH`.
 
-`pip3 install scikit-learn==0.17`
+If you want to build the MLPLAServer yourself, install the MLPLA text text preprocessing library in your local Maven repository by running this command:
+
+`mvn install::install-file -Dfile=speech\mlpla\MLPLA.jar -DgroupId=ro.racai -DartifactId=mlpla -Dversion=1.0.0 -Dpackaging=jar -DgeneratePom=true`
+
+
 
 ### Other dependencies
 Please install these packages as well:
