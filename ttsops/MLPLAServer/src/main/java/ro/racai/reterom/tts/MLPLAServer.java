@@ -91,7 +91,7 @@ public class MLPLAServer {
 	}
 
 	public static void server(int port) {
-		System.err.println("Starting server on port " + port);
+		System.err.println("Starting MLPLA server on port " + port);
 		
 		try {
 			ServerSocket serverSocket = new ServerSocket(port);
@@ -192,6 +192,7 @@ public class MLPLAServer {
 			} // end while accepting
 
 			serverSocket.close();
+			System.err.println("Exiting MLPLA server on port " + port);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			System.exit(1);
