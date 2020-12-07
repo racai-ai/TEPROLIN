@@ -34,7 +34,7 @@ public class ServerTest {
 				BufferedReader in = new BufferedReader(
 						new InputStreamReader(client.getInputStream(), StandardCharsets.UTF_8));) {
 			// 2.1 Send the request
-			out.println("Aceasta este o propoziție de test.");
+			out.println("Aceasta este a 23-a propoziție de test.");
 			out.println(MLPLAServer.EOT_COMMAND);
 
 			// 2.2 Receive the answer.
@@ -51,9 +51,10 @@ public class ServerTest {
 				line = in.readLine();
 			}
 
-			assertEquals(7, lines.size());
-			assertTrue(lines.get(0).endsWith("a ch e@ a s t a"));
-			// 2.3 Instruct severt to quit.
+			assertEquals(9, lines.size());
+			assertTrue(lines.get(0).endsWith("a ch e@ a s t a\t_"));
+			assertTrue(lines.get(3).endsWith("douăzeci și trei"));
+			// 2.3 Instruct server to quit.
 			out.println(MLPLAServer.EXT_COMMAND);
 			// 2.4 Join with the server thread.
 			server.join();

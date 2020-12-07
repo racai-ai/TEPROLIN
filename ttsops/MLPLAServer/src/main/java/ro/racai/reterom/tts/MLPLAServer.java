@@ -139,7 +139,39 @@ public class MLPLAServer {
 							System.err.flush();
 						}
 
-						out.println(otext);
+						// Process the text a bit, to extract what we need.
+						if (otext != null) {
+							String[] olines = otext.split("\r?\n");
+							StringBuilder result = new StringBuilder();
+
+							for (String ol : olines) {
+								String[] parts = ol.split("\\t+");
+								String wordform = parts[0];
+								String syllables = parts[3];
+								String phonetic = parts[4];
+								String expanded = SayEntities.sayNumber(wordform);
+
+								if (expanded.equals(wordform)) {
+									expanded = "_";
+								}
+								else {
+									syllables = "_";
+									phonetic = "_";
+								}
+
+								result.append(wordform);
+								result.append("\t");
+								result.append(syllables);
+								result.append("\t");
+								result.append(phonetic);
+								result.append("\t");
+								result.append(expanded);
+								result.append("\n");
+							}
+
+							out.println(result.toString());
+						}
+
 						out.println(EOT_COMMAND);
 					} else if (!line.isBlank()) {
 						text.append(line + "\n");
