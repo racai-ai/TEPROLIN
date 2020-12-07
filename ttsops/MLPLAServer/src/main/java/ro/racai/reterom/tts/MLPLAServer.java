@@ -36,7 +36,6 @@ public class MLPLAServer {
 			String.join(File.separator, Arrays.asList(System.getProperty("user.home"), ".teprolin",
 					"mlpla", "etc", "languagepipe.conf"));
 	public static final String EOT_COMMAND = "#EOT#";
-	public static final String CLS_COMMAND = "#CLOSE#";
 	public static final String EXT_COMMAND = "#EXIT#";
 	private static final boolean DEBUG = true;
 
@@ -92,8 +91,11 @@ public class MLPLAServer {
 
 	public static void server(int port) {
 		System.err.println("Starting MLPLA server on port " + port);
+		String debugFile = "mlpla-debug-" + port + ".txt";
 		
-		try {
+		try (BufferedWriter log = new BufferedWriter(
+				new OutputStreamWriter(new FileOutputStream(new File(
+						debugFile)), StandardCharsets.UTF_8))) {
 			ServerSocket serverSocket = new ServerSocket(port);
 			Socket clientSocket = serverSocket.accept();
 
@@ -108,16 +110,11 @@ public class MLPLAServer {
 				boolean serverExit = false;
 
 				while (line != null) {
-					if (line.equals(CLS_COMMAND) || line.equals(EXT_COMMAND)) {
-						if (line.equals(EXT_COMMAND)) {
-							serverExit = true;
+					if (line.equals(EXT_COMMAND)) {
+						serverExit = true;
 
-							if (DEBUG)
-								System.err.println("Received the 'exit' command. Bye!");
-						}
-						else if (DEBUG) {
-							System.err.println("Received the 'close' command. Exit loop.");
-						}
+						if (DEBUG)
+							log.write("Received the 'exit' command. Bye!\n");
 
 						break;
 					}
@@ -126,19 +123,19 @@ public class MLPLAServer {
 						String itext = text.toString();
 
 						if (DEBUG) {
-							System.err.println("Going to process ====================");
-							System.err.print(itext);
-							System.err.println("End sample ==========================");
-							System.err.flush();
+							log.write("Going to process ====================\n");
+							log.write(itext);
+							log.write("End sample ==========================\n");
+							log.flush();
 						}
 
 						String otext = processText(itext);
 
 						if (DEBUG) {
-							System.err.println("MLPLA output ========================");
-							System.err.print(otext);
-							System.err.println("End output ==========================");
-							System.err.flush();
+							log.write("MLPLA output ========================\n");
+							log.write(otext);
+							log.write("End output ==========================\n");
+							log.flush();
 						}
 
 						// Process the text a bit, to extract what we need.
