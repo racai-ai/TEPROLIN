@@ -91,6 +91,8 @@ public class MLPLAServer {
 	}
 
 	public static void server(int port) {
+		System.err.println("Starting server on port " + port);
+		
 		try {
 			ServerSocket serverSocket = new ServerSocket(port);
 			Socket clientSocket = serverSocket.accept();
