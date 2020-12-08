@@ -37,7 +37,7 @@ MLPLA is the text preprocessing front-end for SSLA and it is used in TEPROLIN fo
 Additionally, we ported some code from our [ROBIN Dialog Manager project](https://github.com/racai-ai/ROBINDialog) to do numeral rewriting, also for the benefit of TTS tools.
 In order to run MLPLA, you need Java Runtime Engine 15 installed and available in `PATH`.
 
-If you want to build the MLPLAServer yourself, install the MLPLA text text preprocessing library in your local Maven repository by running this command:
+If you want to build the MLPLAServer yourself, install the MLPLA text preprocessing library in your local Maven repository by running this command:
 
 `mvn install::install-file -Dfile=ttsops/MLPLAServer/lib/MLPLA.jar -DgroupId=ro.racai -DartifactId=mlpla -Dversion=1.0.0 -Dpackaging=jar -DgeneratePom=true`
 
