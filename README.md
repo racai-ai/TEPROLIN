@@ -48,7 +48,7 @@ Please install these packages as well:
 ### Teprolin resource files
 The resource files are models, lexicons, mapping files, etc. that are loaded by all NLP apps of Teprolin.
 They sit in the `.teprolin` folder, under your home folder.
-In `Windows 10` this is `%USERPROFILE%` and in `Linux`, `~`. Contact @raduion for the files.
+In `Windows 10` this is `%USERPROFILE%` and in `Linux`, `~`. These files are now automatically installed by TEPROLIN.
 
 ### Testing
 If you want to test the installation, please install `pytest` first:
