@@ -1,15 +1,14 @@
-from functools import cmp_to_key
 import atexit
 import inspect
 import sys
 import os
+import requests, zipfile, io
 from pathlib import Path
 from time import gmtime
 from filelock import FileLock
 from enum import Enum
 
 from TeproAlgo import TeproAlgo
-from TeproApi import TeproApi
 from TeproDTO import TeproDTO
 
 # Import all NLP apps that are implemented
@@ -21,6 +20,7 @@ from ttsops.TTSOps import TTSOps
 from ttl.TTLOps import TTLOps
 from ner.NEROps import NEROps
 from bioner.BioNEROps import BioNEROps
+from TeproConfig import TEPROLIN_RESOURCES_FOLDER, DIACMODELFILE
 
 # Statistic status
 
@@ -55,9 +55,69 @@ class Teprolin(object):
     # the stats file such that the brother processes
     # can update.
     statsUpdateCounts = 10
+    resourcesDownloadLink = "https://relate.racai.ro/resources/teprolin/teprolin-resources.zip"
+
+    def _installResources(self):
+        """This method will check for the existence of the .teprolin folder
+        in the user's home folder. If there's no such folder, it is created
+        and resources are downloaded from RACAI's servers."""
+        teproFolder = Path(TEPROLIN_RESOURCES_FOLDER)
+
+        if not teproFolder.is_dir():
+            print("{0}.{1}[{2}]: creating the TEPROLIN resources folder {3}".
+                    format(
+                        Path(inspect.stack()[0].filename).stem,
+                        inspect.stack()[0].function,
+                        inspect.stack()[0].lineno,
+                        TEPROLIN_RESOURCES_FOLDER
+                    ), file=sys.stderr, flush=True)
+            
+            # Folder already exists in the .zip
+            teproFolder.mkdir(mode=0o755)
+
+            print("{0}.{1}[{2}]: downloading the resources @ {3}".
+                    format(
+                        Path(inspect.stack()[0].filename).stem,
+                        inspect.stack()[0].function,
+                        inspect.stack()[0].lineno,
+                        Teprolin.resourcesDownloadLink
+                    ), file=sys.stderr, flush=True)
+
+            r = requests.get(Teprolin.resourcesDownloadLink)
+
+            if r.status_code == 200:
+                z = zipfile.ZipFile(io.BytesIO(r.content))
+                z.extractall(teproFolder)
+
+                if Path(DIACMODELFILE).is_file():
+                    print("{0}.{1}[{2}]: installation OK".
+                            format(
+                                Path(inspect.stack()[0].filename).stem,
+                                inspect.stack()[0].function,
+                                inspect.stack()[0].lineno
+                            ), file=sys.stderr, flush=True)
+                else:
+                    print("{0}.{1}[{2}]: expected file {3} wasn't found, please check".
+                            format(
+                                Path(inspect.stack()[0].filename).stem,
+                                inspect.stack()[0].function,
+                                inspect.stack()[0].lineno,
+                                DIACMODELFILE
+                            ), file=sys.stderr, flush=True)
+                    exit(1)
+            else:
+                print("{0}.{1}[{2}]: could not download the resources @ {3}".
+                        format(
+                            Path(inspect.stack()[0].filename).stem,
+                            inspect.stack()[0].function,
+                            inspect.stack()[0].lineno,
+                            Teprolin.resourcesDownloadLink
+                        ), file=sys.stderr, flush=True)
+                exit(1)
 
     def _startApps(self):
         """When you add a new NLP app, don't forget to add it here as well!"""
+        self._installResources()
 
         tn = TextNorm()
         dr = DiacRestore()
