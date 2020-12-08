@@ -9,6 +9,7 @@ text2 = "Stia ca demonstratia o sa fie un succes."
 text3 = "Instanta suprema reia astazi judecarea."
 text4 = "Diabetul zaharat este un sindrom caracterizat prin valori crescute ale concentratiei \
     glucozei in sange (hiperglicemie) si dezechilibrarea metabolismului."
+text5 = "Aceasta este propoziția 123 de test și nu-ți dă cu virgulă ca în 45.631."
 
 def test_TextNorm():
     dto = tepro.pcExec(text, [TeproAlgo.getTextNormOperName()])
@@ -76,7 +77,7 @@ def test_TTS():
     tepro.configure(TeproAlgo.getPOSTaggingOperName(), TeproAlgo.algoTTL)
     tepro.configure(TeproAlgo.getLemmatizationOperName(), TeproAlgo.algoTTL)
 
-    dto = tepro.pcExec(text, [
+    dto = tepro.pcExec(text5, [
         TeproAlgo.getHyphenationOperName(),
         TeproAlgo.getStressIdentificationOperName(),
         TeproAlgo.getPhoneticTranscriptionOperName(),
@@ -85,14 +86,17 @@ def test_TTS():
     ])
 
     # Processed two sentences...
-    assert dto.getNumberOfSentences() == 2
+    assert dto.getNumberOfSentences() == 1
 
     # For the first sentence:
-    assert dto.getSentenceTokens(0)[1].getExpansion() == 'șapte'
-
-    # For the second sentence:
-    assert dto.getSentenceTokens(1)[1].getSyllables() == "con.str'uc.ți.ei"
-    assert dto.getSentenceTokens(1)[1].getPhonetical() == "k.o.n.s.t.r.u.k.ts.i.e.j"
+    assert dto.getSentenceTokens(0)[3].getExpansion() == \
+        'o sută douăzeci și trei'
+    assert dto.getSentenceTokens(0)[0].getSyllables() == "a-'ceas-ta"
+    assert dto.getSentenceTokens(0)[0].getPhonetical() == "a ch e@ a s t a"
+    assert dto.getSentenceTokens(0)[11].getSyllables() == "'vir-gu-lă"
+    assert dto.getSentenceTokens(0)[11].getPhonetical() == "v i r g u l @"
+    assert dto.getSentenceTokens(0)[14].getExpansion() == \
+        'patruzeci și cinci virgulă șase sute treizeci și unu'
 
 def test_MWEsAndDepTransfer():
     tepro.configure(TeproAlgo.getSentenceSplittingOperName(), TeproAlgo.algoTTL)

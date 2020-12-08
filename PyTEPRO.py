@@ -10,6 +10,18 @@ def main():
     # 1. Create the object
     tepro = Teprolin()
 
+    # 1.0 Check new TTSOps
+    text = "Aceasta este propoziția 123 de test și nu-ți dă cu virgulă ca în 45.631."
+    tepro.configure(TeproAlgo.getSentenceSplittingOperName(),
+                    TeproAlgo.algoTTL)
+    tepro.configure(TeproAlgo.getTokenizationOperName(), TeproAlgo.algoTTL)
+    tepro.configure(TeproAlgo.getPOSTaggingOperName(), TeproAlgo.algoTTL)
+    tepro.configure(TeproAlgo.getLemmatizationOperName(), TeproAlgo.algoTTL)
+    dto = tepro.pcExec(
+        text, [TeproAlgo.getHyphenationOperName(), TeproAlgo.getPhoneticTranscriptionOperName(),
+        TeproAlgo.getNumeralRewritingOperName()])
+    dto.dumpConllX()
+
     tepro.getStats(Teprolin.statsTokens, Teprolin.statsDay, 2)
 
     # 1.1 Test the UDPipe flow

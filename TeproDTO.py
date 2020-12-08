@@ -29,7 +29,7 @@ class TeproDTO(object):
     def getProcessedTokens(self):
         return self._proctoks
 
-    def getConfiguredAlgoForOper(self, oper: str) -> str:
+    def getConfiguredAlgoForOper(self, oper: str):
         if oper in self._opsConf:
             return self._opsConf[oper]
 
@@ -58,7 +58,7 @@ class TeproDTO(object):
     def getNumberOfSentences(self) -> int:
         return len(self._sentences)
 
-    def getSentenceString(self, i: int) -> str:
+    def getSentenceString(self, i: int):
         """Get the i-th sentence."""
 
         if i >= 0 and i < len(self._sentences):
@@ -66,7 +66,7 @@ class TeproDTO(object):
 
         return None
 
-    def getSentenceTokens(self, i: int) -> list:
+    def getSentenceTokens(self, i: int):
         """Get the i-th sentence as a list of TeproTok(s)."""
 
         if i >= 0 and i < len(self._tokenized):
@@ -107,7 +107,7 @@ class TeproDTO(object):
             'tokenized': self._tokenized
         }
 
-    def alignSentences(self, fromSent: list, sid: int) -> list:
+    def alignSentences(self, fromSent: list, sid: int):
         if sid < len(self._tokenized):
             toSent = self._tokenized[sid]
             # Indexes into fromSent

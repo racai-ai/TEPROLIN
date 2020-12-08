@@ -1,6 +1,3 @@
-# DO NOT USE, IN TRANSIT!
-Please wait before this section goes away, before using it!
-
 # Teprolin
 **Teprolin** is a `Python` platform for text pre-processing that has been developed in the [Teprolin project](http://www.racai.ro/p/reterom/).
 It is described in the following paper ([click to read it from the conference proceedings](https://profs.info.uaic.ro/~consilr/wp-content/uploads/2019/06/volum-ConsILR-2018-1.pdf)):

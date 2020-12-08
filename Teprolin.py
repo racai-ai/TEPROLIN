@@ -18,7 +18,6 @@ from diac.DiacRestore import DiacRestore
 from cubenlp.CubeNLP import CubeNLP
 from udpipe.UDPipe import UDPipe
 from ttsops.TTSOps import TTSOps
-from ttsops.ExpandOps import ExpandOps
 from ttl.TTLOps import TTLOps
 from ner.NEROps import NEROps
 from bioner.BioNEROps import BioNEROps
@@ -71,12 +70,12 @@ class Teprolin(object):
         ttl = TTLOps()
         ttl.createApp()
         tts = TTSOps()
-        exp = ExpandOps()
+        tts.createApp()
         ner = NEROps()
         bner = BioNEROps()
         bner.createApp()
 
-        return [tn, dr, cb, udp, ttl, exp, tts, ner, bner]
+        return [tn, dr, cb, udp, ttl, tts, ner, bner]
 
     def _readStatsFile(self) -> list:
         lock = FileLock(Teprolin.statsLockFile)

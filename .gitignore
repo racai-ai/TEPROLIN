@@ -1,8 +1,10 @@
 # Radu's files
 temp.txt
 ttl-debug-*.txt
+mlpla-debug-*.txt
 teprolin-stats.txt.lock
 ttl-port.txt.lock
+mlpla-port.txt.lock
 
 # Python
 __pycache__/
@@ -28,3 +30,7 @@ ttsops/MLPLAServer/input.txt
 ttsops/MLPLAServer/lts.graph
 ttsops/MLPLAServer/output.txt
 ttsops/MLPLAServer/target/
+input.txt
+lts.graph
+output.txt
+ttsops/MLPLAServer/mlpla-debug-12345.txt

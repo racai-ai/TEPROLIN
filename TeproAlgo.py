@@ -80,11 +80,9 @@ class TeproAlgo(object):
 
     # Does word hyphenation, accent detection,
     # and phonetic transcription.
-    algoTTS = "tts-utcluj"
-
-    # Expands numerals
-    # acronyms and abbreviations.
-    algoExpn = "expander-utcluj"
+    # Also, expands numerals
+    # acronyms and abbreviations (not yet, but soon).
+    algoTTS = "mlpla-icia"
 
     # Provides Named Entity Recognition
     algoNER = "ner-icia"
@@ -190,7 +188,6 @@ class TeproAlgo(object):
             TeproAlgo.algoTNorm,
             TeproAlgo.algoTTL,
             TeproAlgo.algoTTS,
-            TeproAlgo.algoExpn,
             TeproAlgo.algoNER,
             TeproAlgo.algoBNER
         ]
@@ -370,12 +367,12 @@ class TeproAlgo(object):
         operations.append(ph)
 
         nr = TeproOp(TeproAlgo.getNumeralRewritingOperName())
-        nr.addAlgorithm(TeproAlgo.algoExpn)
+        nr.addAlgorithm(TeproAlgo.algoTTS)
         nr.addDependency(tk)
         operations.append(nr)
 
         ar = TeproOp(TeproAlgo.getAbbreviationRewritingOperName())
-        ar.addAlgorithm(TeproAlgo.algoExpn)
+        ar.addAlgorithm(TeproAlgo.algoTTS)
         ar.addDependency(tk)
         operations.append(ar)
 
