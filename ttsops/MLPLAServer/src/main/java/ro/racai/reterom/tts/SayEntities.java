@@ -163,15 +163,22 @@ public class SayEntities {
 
 			if (decimalPart > 0) {
 				String p1 = sayNumber(parts[0]) + " virgulă ";
-				List<String> p2List = new ArrayList<>();
+				String decimal = parts[1];
 
-				for (int i = 0; i < parts[1].length(); i++) {
-					String c = new String(new char[] {parts[1].charAt(i)});
-					
-					p2List.add(sayNumber(c));
+				if (decimal.startsWith("0") || decimal.length() > 4) {
+					List<String> p2List = new ArrayList<>();
+
+					for (int i = 0; i < decimal.length(); i++) {
+						String c = new String(new char[] {decimal.charAt(i)});
+
+						p2List.add(sayNumber(c));
+					}
+
+					return p1 + String.join(" ", p2List);
 				}
-
-				return p1 + String.join(" ", p2List);
+				else {
+					return p1 + sayNumber(decimal);
+				}
 			}
 			else {
 				return sayNumber(parts[0]);
