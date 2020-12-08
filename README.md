@@ -21,6 +21,11 @@ To make sure **TTL** works, issue the following commands in a `perl`-enabled com
 
 `pip3 install nlpcube`
 
+### UD-Pipe
+[UD-Pipe 1](http://ufal.mff.cuni.cz/udpipe/1) can be installed with the following command:
+
+`pip3 install ufal.udpipe`
+
 ### TTS Frontend
 SSLA is a Text-To-Speech library developed by Tiberiu Boroș et al.
 Read about it on [arXiv](https://arxiv.org/pdf/1802.05583.pdf). The source code can be found on GitHub at [SSLA](https://github.com/racai-ai/ssla).
