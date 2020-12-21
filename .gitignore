@@ -5,6 +5,9 @@ mlpla-debug-*.txt
 teprolin-stats.txt.lock
 ttl-port.txt.lock
 mlpla-port.txt.lock
+*~
+*.pid
+*.log
 
 # Python
 __pycache__/
