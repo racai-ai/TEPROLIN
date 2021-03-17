@@ -1,0 +1,137 @@
+{"rules":[
+
+{
+    "match":[
+      {"lemma":"curte","id":"0"},
+      {"lemma":"constituțional","id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"minister|consiliu","id":"0"},
+      {"ner":"!O","id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"câștiga","id":"0"},
+      {"ner":"PER","id":"1"}
+    ],
+    "result":[{"id":"1","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"ner":"ORG"},
+      {"lemma":","},
+      {"ner":"ORG"},
+      {"lemma":"și"},
+      {"ner":"PER|LOC","id":0}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"complex|fisc|trezorerie|avion|Banque|instanță|coaliție|parlament|senat|guvern|tribunal|parchet|judecătorie|spital|institut|universitate|academie|statut|stat|secție|plen","ner":"PER|LOC","id":"0"},
+      {"or":[
+          {"ner":"PER|LOC"},
+          {"lemma":"suprem"}
+      ],"id":"0","min":0}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"arbitru","ner":"LOC","id":"0"},
+      {"ner":"LOC","id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+
+{
+    "match":[
+      {"ner":"ORG|PER","max":1},
+      {"ner":"ORG|PER","or":[
+          {"msd2":"Vm|Va"},
+          {"word":"la"}
+      ],"id":"0"},
+      {"ner":"ORG|PER","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"lemma":"cotidian|ziar|revistă"},
+      {"msd2":"Nc","ner":"O","min":0,"max":1},
+      {"ner":"LOC","id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"guvern|senat|parlament","word":"!::LOWERCASE","ner":"O","id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"monitor","word":"!::LOWERCASE","ner":"!ORG","id":"0"},
+      {"lemma":"oficial","word":"!::LOWERCASE","ner":"!ORG","id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"poștă","word":"!::LOWERCASE","ner":"!ORG","id":"0"},
+      {"lemma":"român","word":"!::LOWERCASE","ner":"!ORG","id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"Bitdefender|SRI|SIE|CNAIR|RADOR|Digi|RCS|RDS|UPC|Dacia|Renault|Volkswagen|Opel|BMW|Daimler|Chrysler|Mercedes-Benz|Audi|Peugeot|Fiat|Coca-Cola|UE|Mediafax|Facebook|Twitter|ANPC|DIICOT|GRECO|HotNews|CFR|PICCJ|ICCJ|CCR|Metrorex|RATB|RATBV|RATC|DSPMB|DGASPC|CSM|INM|PSD|PNL|UDMR|ALDE|DNA|MApN|BCR|BRD|Bloomberg|RADET","word":"!::LOWERCASE","ner":"!ORG","id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"grup|companie|firmă|agenție|aeroport|gară|fundație|autoritate|hotel","id":0},
+      {"id":"0","ner":"!O","and":[
+          {"word":"!::SUFFIX:ei"},
+          {"word":"!::SUFFIX:ului"}
+      ]}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"primărie","id":0},
+      {"id":"0","ner":"!O"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"lemma":"armată","ner":"!O", "id":0},
+      {"id":"0","ner":"!O","min":0}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+}
+
+
+]}

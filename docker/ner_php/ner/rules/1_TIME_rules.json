@@ -1,0 +1,176 @@
+{"rules":[
+
+{
+    "match":[
+      {"lemma":"câtva|aproape|peste|după|al|până|la|de|următor|următoarea|ultimii|peste|vreun|sfârșit|început|final|fine","min":0,"id":"3"},
+    	{"or":[
+          {"ctag":"M"},
+          {"word":"::NUMBER"},
+          {"lemma":"jumătate|sfert|mult"}
+      ],"id":"0","min":0},
+    	{"word":"de","min":0,"id":"1"},
+    	{"or":[
+          {"lemma":"an|oră|lună|zi|săptămână|trimestru|semestru|minut|secundă|milisecundă|deceniu|secol|centenar|veac|decadă|mileniu|crăciun|revelion|seară|noapte"},
+          {"word":"an|ani|oră|ore|lună|luni|zi|zile|săptămână|săptămâni|trimestru|trimestre|semestru|semestre|minut|minute|secundă|secunde|milisecundă|milisecunde|deceniu|decenii|secol|secole|mileniu|milenii"}
+      ],"id":"2"},
+      {"lemma":"mai","min":0,"id":"3"},
+      {"lemma":"devreme|târziu","min":0,"id":"4"}
+    ],
+    "result":[{"id":"0","type":"TIME"},{"id":"1","type":"TIME"},{"id":"2","type":"TIME"},{"id":"3","type":"TIME"},{"id":"4","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"word":"un|o","id":"0"},
+    	{"lemma":"an|oră|lună|zi|săptămână|trimestru|semestru|minut|secundă|milisecundă|deceniu|secol|mileniu","id":"1"},
+      {"lemma":"și","min":0,"id":"2"},
+      {"ctag":"M","min":0,"id":"3"},
+      {"lemma":"jumătate|sfert","id":4}
+    ],
+    "result":[{"id":"0","type":"TIME"},{"id":"1","type":"TIME"},{"id":"2","type":"TIME"},{"id":"3","type":"TIME"},{"id":"4","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"lemma":"peste|după|la","id":"2","min":0},
+      {"lemma":"acest|alt|un|o|atât","id":"0"},
+    	{"lemma":"moment|an|oră|lună|zi|săptămână|trimestru|semestru|minut|secundă|milisecundă|seară|dimineață|amiază|noapte|timp|deceniu|secol|mileniu","id":"1"}
+    ],
+    "result":[{"id":"0","type":"TIME"},{"id":"1","type":"TIME"},{"id":"2","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"lemma":"între","id":"0"},
+    	{"lemma":"timp","id":"1"}
+    ],
+    "result":[{"id":"0","type":"TIME"},{"id":"1","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"word":"fiecare|fiece","min":0,"id":"2"},
+    	{"or":[
+          {"ctag":"M"},
+          {"word":"::NUMBER"}
+      ],"id":"0","min":0},
+    	{"lemma":"luni|marți|miercuri|joi|vineri|sâmbătă|duminică|săptămână|lună|an|trimestru|semestru|zi|oră|minut|secundă|milisecundă|primăvară|vară|iarnă|toamnă|ianuarie|februarie|martie|aprilie|mai|iunie|iulie|august|septembrie|octombrie|noiembrie|decembrie|deceniu|secol|mileniu|crăciun",
+        "msd2":"Nc|Np|DA","id":"0"},
+      {"lemma":"la|an|și","min":0,"id":"3","final":false},
+      {"or":[
+    	   {"lemma":"viitor|trecut|precedent|următor|anterior|acesta|celălalt|trece|noapte|seară|dimineața|dimineață|zi|noaptea|seara|amiază|amurg|răsărit|apus|jumătate|amiază"},
+         {"ctag":"M"},
+         {"word":"::NUMBER"}
+      ],"min":0,"id":"1"}
+    ],
+    "result":[{"id":"0","type":"TIME"},{"id":"1","type":"TIME"},{"id":"2","type":"TIME"},{"id":"3","type":"TIME"}]
+},
+
+{
+    "match":[
+    	{"lemma":"luni|marți|miercuri|joi|vineri|sâmbătă|duminică|în_prezent", "ner":"O","id":"0"}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+},
+
+
+{
+    "match":[
+      {"lemma":"!bun","min":0,"max":1},
+      {"lemma":"până","min":0,"id":"0"},
+      {"lemma":"răsalaltăieri|alaltăieri|ieri|azi|astăzi|acum|mâine|poimâine|răspoimâine|zi|noapte|seară|dimineață|amurg|asfințit|deceniu|secol|mileniu","id":"0"}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"word":"un|o","id":"0"},
+    	{"lemma":"perioadă","id":"1"},
+      {"lemma":"destul","min":0,"id":"2"},
+      {"lemma":"de","min":0,"id":"3"},
+      {"lemma":"scurt|lung","id":4}
+    ],
+    "result":[{"id":"0","type":"TIME"},{"id":"1","type":"TIME"},{"id":"2","type":"TIME"},{"id":"3","type":"TIME"},{"id":"4","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"or":[{"lemma":"prima|ultima"},{"ctag":"M"}],"id":0},
+      {"lemma":"parte|jumătate|sfert|perioadă","id":1},
+      {"lemma":"al","id":"2"},
+    	{"lemma":"săptămână|lună|an|trimestru|semestru|zi|oră|minut|secundă|milisecundă|primăvară|vară|iarnă|toamnă|ianuarie|februarie|martie|aprilie|mai|iunie|iulie|august|septembrie|octombrie|noiembrie|decembrie|deceniu|secol|mileniu",
+        "msd2":"Nc|Np|DA","id":"3"},
+    	{"lemma":"viitor|trecut|precedent|următor|anterior|acesta|celălalt|trece","min":0,"id":"4"}
+    ],
+    "result":[{"id":"0","type":"TIME"},{"id":"1","type":"TIME"},{"id":"2","type":"TIME"},{"id":"3","type":"TIME"},{"id":"4","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"word":"::NUMBER","id":"0","min":1,"max":1},
+      {"word":"p.m.|a.m.","id":"1","min":1,"max":1}
+    ],
+    "result":[{"id":"0","type":"TIME"},{"id":"1","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"lemma":"pentru|din|în|pe|lui|an|revelion|crăciun","min":1},
+      {"word":"::NUMBER","id":"0","min":1,"max":1},
+      {"word":"de","min":0},
+      {"lemma":"!milioane|!exemplar|!bucată|!litru|!metru|!kg|!kilogram|!l|!m|!tonă|!t|!punct","max":1}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"lemma":"pentru|din|în|pe","min":1},
+      {"lemma":"perioadă","min":1,"id":"0"},
+      {"word":"::NUMBER","id":"0","min":1,"max":1},
+      {"word":"-","min":1,"id":"0"},
+      {"word":"::NUMBER","id":"0","min":1,"max":1}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"word":"::DATE|zilnic|lunar|anual|săptămânal|bilunar|bianual","ner":"!TIME","id":"0"}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+},
+
+
+{
+    "match":[
+    	{"or":[
+          {"ctag":"M","id":"0","min":0},
+          {"word":"::NUMBER","min":0}
+      ],"id":"0","min":0},
+    	{"word":"anul","id":"2"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"lemma":"astă-vară|astă-iarnă|astă-toamnă|astă-primăvară|astă-noapte|astă-zi|astă-seară|astă-dimineață","id":"0"}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+},
+
+{
+    "match":[
+      {"lemma":"nr."},
+      {"ctag":"M"},
+      {"lemma":"/"},
+      {"ctag":"M","id":0}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+}
+
+
+
+]}

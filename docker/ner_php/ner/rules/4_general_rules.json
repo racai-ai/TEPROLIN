@@ -1,0 +1,48 @@
+{"rules":[
+
+{
+    "match":[
+      {"ner":"O|TIME|ORG|LOC","max":1},
+      {"ner":"PER","lemma":"prim|primul|primului|prim-","id":"0"},
+      {"ner":"O|TIME|ORG|LOC","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"O|TIME|PER|LOC","max":1},
+      {"ner":"ORG","lemma":"cod|victimă|incident|dispoziție|rezervă|tranzacție|fapt|protest","id":"0"},
+      {"ner":"O|TIME|PER|LOC","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"ORG","lemma":"asociație|partid|coaliție|fundație|hotel"},
+      {"ner":"ORG","lemma":"!și"},
+      {"ner":"ORG","lemma":"și","id":"0"},
+      {"ner":"ORG","lemma":"de|de_către|către|pentru","id":"0","min":0},
+      {"lemma":"asociație|partid|coaliție|fundație|hotel"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"PER","lemma":
+          "primul|primului|prim-|comisar|doamnă|domn|director|candidat|candidată|contracandidat|contracandidată|deputat|ambasador|europarlamentar|jurnalist|manager|magistrat|judecător|judecătoare|colonel|locotenent|general|sergent|șefă|șef|primar|ministru|profesor|doctor|premier|reprezentant|delegat|epidemiolog|vicepremier|președinte|vicepreședinte|medic|avocat|senator|parlamentar|procuror|angajat|chirurg"
+      },
+      {"ner":"PER","lemma":"!și"},
+      {"ner":"PER","lemma":"și","id":"0"},
+      {"ner":"PER","lemma":"de|de_către|către|pentru","id":"0","min":0},
+      {"lemma":
+          "primul|primului|prim-|comisar|doamnă|domn|director|candidat|candidată|contracandidat|contracandidată|deputat|ambasador|europarlamentar|jurnalist|manager|magistrat|judecător|judecătoare|colonel|locotenent|general|sergent|șefă|șef|primar|ministru|profesor|doctor|premier|reprezentant|delegat|epidemiolog|vicepremier|președinte|vicepreședinte|medic|avocat|senator|parlamentar|procuror|angajat|chirurg"
+      }
+    ],
+    "result":[{"id":"0","type":"O"}]
+}
+
+
+]}

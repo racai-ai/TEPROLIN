@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WSDL for http://ws.racai.ro:8080/ created by Radu ION -->
+<wsdl:definitions targetNamespace="http://ws.racai.ro/pdk/ttlws" xmlns:impl="http://ws.racai.ro/pdk/ttlws" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://ws.racai.ro/pdk/ttlws">
+
+	<wsdl:message name="SentenceSplitterRequest">
+		<wsdl:part name="lang" type="xsd:string">
+			<wsdl:documentation>The language of the engine to use.</wsdl:documentation>
+		</wsdl:part>
+		<wsdl:part name="instr" type="xsd:string">
+			<wsdl:documentation>The input paragraph or sentence string (must be SGML encoded).</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="SentenceSplitterResponse">
+		<wsdl:part name="SentenceSplitterReturn" type="xsd:string">
+			<wsdl:documentation>This method returs a set of sentences as a single string. The sentences are separated by '\r\n'.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="TokenizerRequest">
+		<wsdl:part name="lang" type="xsd:string">
+			<wsdl:documentation>The language of the engine to use.</wsdl:documentation>
+		</wsdl:part>
+		<wsdl:part name="instr" type="xsd:string">
+			<wsdl:documentation>One input sentence string from SentenceSplitter.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="TokenizerResponse">
+		<wsdl:part name="TokenizerReturn" type="xsd:string">
+			<wsdl:documentation>The method returns a set of lines separated by '\r\n'. Each line contains a token and possibly a POS tag (list) separated by '\t' and a NER tag (list) separated by '\t'.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="TaggerRequest">
+		<wsdl:part name="lang" type="xsd:string">
+			<wsdl:documentation>The language of the engine to use.</wsdl:documentation>
+		</wsdl:part>
+		<wsdl:part name="instr" type="xsd:string">
+			<wsdl:documentation>One input tokenized sentence string from Tokenizer.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="TaggerResponse">
+		<wsdl:part name="TaggerReturn" type="xsd:string">
+			<wsdl:documentation>The method returns a set of lines separated by '\r\n'. Each line contains a token and a POS tag (list) separated by '\t'. Possibly, also a NER tag (list) separated by '\t'.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="LemmatizerRequest">
+		<wsdl:part name="lang" type="xsd:string">
+			<wsdl:documentation>The language of the engine to use.</wsdl:documentation>
+		</wsdl:part>
+		<wsdl:part name="instr" type="xsd:string">
+			<wsdl:documentation>One input tokenized and tagged sentence string from Tagger.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="LemmatizerResponse">
+		<wsdl:part name="LemmatizerReturn" type="xsd:string">
+			<wsdl:documentation>The method returns a set of lines separated by '\r\n'. Each line contains a token, a POS tag (list) and a lemma, all separated by '\t'.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="ChunkerRequest">
+		<wsdl:part name="lang" type="xsd:string">
+			<wsdl:documentation>The language of the engine to use.</wsdl:documentation>
+		</wsdl:part>
+		<wsdl:part name="instr" type="xsd:string">
+			<wsdl:documentation>One input tokenized, tagged and lemmatized sentence string from Lemmatizer.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="ChunkerResponse">
+		<wsdl:part name="ChunkerReturn" type="xsd:string">
+			<wsdl:documentation>The method returns a set of lines separated by '\r\n'. Each line contains a token, a POS tag (list), a lemma and possibly a list of available chunks to which the current token belongs, all separated by '\t'.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="XCESRequest">
+		<wsdl:part name="lang" type="xsd:string">
+			<wsdl:documentation>The language of the engine to use.</wsdl:documentation>
+		</wsdl:part>
+		<wsdl:part name="parid" type="xsd:string">
+			<wsdl:documentation>The paragraph id. If equals to '', no paragraph id is inserted.</wsdl:documentation>
+		</wsdl:part>
+		<wsdl:part name="instr" type="xsd:string">
+			<wsdl:documentation>The input string as a paragraph or sequence of sentences.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="XCESResponse">
+		<wsdl:part name="XCESReturn" type="xsd:string">
+			<wsdl:documentation>The method returns a set of &lt;seg...&gt;&lt;/seg&gt; segments containing XCES (RACAI variant) data all separated by '\r\n'.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="UTF8toSGMLRequest">
+		<wsdl:part name="instr" type="xsd:string">
+			<wsdl:documentation>The UTF8 encoded, input string.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="UTF8toSGMLResponse">
+		<wsdl:part name="UTF8toSGMLReturn" type="xsd:string">
+			<wsdl:documentation>The method returns a SGML character expansion of the input string.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="SGMLtoUTF8Request">
+		<wsdl:part name="instr" type="xsd:string">
+			<wsdl:documentation>The SGML encoded, input string.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="SGMLtoUTF8Response">
+		<wsdl:part name="SGMLtoUTF8Return" type="xsd:string">
+			<wsdl:documentation>The method returns the UTF8 character encoding of the input string.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="SGMLtoUTF7Request">
+		<wsdl:part name="instr" type="xsd:string">
+			<wsdl:documentation>The SGML encoded, input string.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="SGMLtoUTF7Response">
+		<wsdl:part name="SGMLtoUTF7Return" type="xsd:string">
+			<wsdl:documentation>The method returns a UTF7 representation of the input string.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="pdkTtlwsHandler">
+		<wsdl:operation name="SentenceSplitter" parameterOrder="lang instr">
+			<wsdl:documentation>This method performs sentence splitting. Input string must be SGML encoded. For this purpose, use this package UTF8toSGML and then apply SGMLtoUTF8 on the result value to obtain the UTF8 encoding of the result.</wsdl:documentation>
+			<wsdl:input message="impl:SentenceSplitterRequest" name="SentenceSplitterRequest" />
+			<wsdl:output message="impl:SentenceSplitterResponse" name="SentenceSplitterResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="Tokenizer" parameterOrder="lang instr">
+			<wsdl:documentation>This method performs sentence splitting. Input string must be SGML encoded. For this purpose, use this package UTF8toSGML and then apply SGMLtoUTF8 on the result value to obtain the UTF8 encoding of the result.</wsdl:documentation>
+			<wsdl:input message="impl:TokenizerRequest" name="TokenizerRequest" />
+			<wsdl:output message="impl:TokenizerResponse" name="TokenizerResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="Tagger" parameterOrder="lang instr">
+			<wsdl:documentation>This method performs POS tagging using HMM models. Input string must be SGML encoded. For this purpose, use this package UTF8toSGML and then apply SGMLtoUTF8 on the result value to obtain the UTF8 encoding of the result.</wsdl:documentation>
+			<wsdl:input message="impl:TaggerRequest" name="TaggerRequest" />
+			<wsdl:output message="impl:TaggerResponse" name="TaggerResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="Lemmatizer" parameterOrder="lang instr">
+			<wsdl:documentation>This method performs lemmatization using lexicon lookup and statistical lemmatization. Input string must be SGML encoded. For this purpose, use this package UTF8toSGML and then apply SGMLtoUTF8 on the result value to obtain the UTF8 encoding of the result.</wsdl:documentation>
+			<wsdl:input message="impl:LemmatizerRequest" name="LemmatizerRequest" />
+			<wsdl:output message="impl:LemmatizerResponse" name="LemmatizerResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="Chunker" parameterOrder="lang instr">
+			<wsdl:documentation>This method performs chunking over sequences of POS tags defined by regexes. Input string must be SGML encoded. For this purpose, use this package UTF8toSGML and then apply SGMLtoUTF8 on the result value to obtain the UTF8 encoding of the result.</wsdl:documentation>
+			<wsdl:input message="impl:ChunkerRequest" name="ChunkerRequest" />
+			<wsdl:output message="impl:ChunkerResponse" name="ChunkerResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="XCES" parameterOrder="lang parid instr">
+			<wsdl:documentation>This method performs XCES encoding on the input string and calls all the processing methods in order. Input string must be SGML encoded. For this purpose, use this package UTF8toSGML and then apply SGMLtoUTF8 on the result value to obtain the UTF8 encoding of the result.</wsdl:documentation>
+			<wsdl:input message="impl:XCESRequest" name="XCESRequest" />
+			<wsdl:output message="impl:XCESResponse" name="XCESResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="UTF8toSGML" parameterOrder="instr">
+			<wsdl:documentation>This static method performs UTF8 to SGML encoding on the input string.</wsdl:documentation>
+			<wsdl:input message="impl:UTF8toSGMLRequest" name="UTF8toSGMLRequest" />
+			<wsdl:output message="impl:UTF8toSGMLResponse" name="UTF8toSGMLResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="SGMLtoUTF8" parameterOrder="instr">
+			<wsdl:documentation>This static method performs SGML to UTF8 encoding on the input string.</wsdl:documentation>
+			<wsdl:input message="impl:SGMLtoUTF8Request" name="SGMLtoUTF8Request" />
+			<wsdl:output message="impl:SGMLtoUTF8Response" name="SGMLtoUTF8Response" />
+		</wsdl:operation>
+
+		<wsdl:operation name="SGMLtoUTF7" parameterOrder="instr">
+			<wsdl:documentation>This static method performs SGML to UTF7 encoding on the input string.</wsdl:documentation>
+			<wsdl:input message="impl:SGMLtoUTF7Request" name="SGMLtoUTF7Request" />
+			<wsdl:output message="impl:SGMLtoUTF7Response" name="SGMLtoUTF7Response" />
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+	<wsdl:binding name="pdkTtlwsSoapBinding" type="impl:pdkTtlwsHandler">
+		<wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="SentenceSplitter">
+			<wsdlsoap:operation soapAction="http://ws.racai.ro/pdk/ttlws#SentenceSplitter" />
+			<wsdl:input name="SentenceSplitterRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:input>
+			<wsdl:output name="SentenceSplitterResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="Tokenizer">
+			<wsdlsoap:operation soapAction="http://ws.racai.ro/pdk/ttlws#Tokenizer" />
+			<wsdl:input name="TokenizerRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:input>
+			<wsdl:output name="TokenizerResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="Tagger">
+			<wsdlsoap:operation soapAction="http://ws.racai.ro/pdk/ttlws#Tagger" />
+			<wsdl:input name="TaggerRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:input>
+			<wsdl:output name="TaggerResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="Lemmatizer">
+			<wsdlsoap:operation soapAction="http://ws.racai.ro/pdk/ttlws#Lemmatizer" />
+			<wsdl:input name="LemmatizerRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:input>
+			<wsdl:output name="LemmatizerResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="Chunker">
+			<wsdlsoap:operation soapAction="http://ws.racai.ro/pdk/ttlws#Chunker" />
+			<wsdl:input name="ChunkerRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:input>
+			<wsdl:output name="ChunkerResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="XCES">
+			<wsdlsoap:operation soapAction="http://ws.racai.ro/pdk/ttlws#XCES" />
+			<wsdl:input name="XCESRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:input>
+			<wsdl:output name="XCESResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="UTF8toSGML">
+			<wsdlsoap:operation soapAction="http://ws.racai.ro/pdk/ttlws#UTF8toSGML" />
+			<wsdl:input name="UTF8toSGMLRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:input>
+			<wsdl:output name="UTF8toSGMLResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="SGMLtoUTF8">
+			<wsdlsoap:operation soapAction="http://ws.racai.ro/pdk/ttlws#SGMLtoUTF8" />
+			<wsdl:input name="SGMLtoUTF8Request">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:input>
+			<wsdl:output name="SGMLtoUTF8Response">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="SGMLtoUTF7">
+			<wsdlsoap:operation soapAction="http://ws.racai.ro/pdk/ttlws#SGMLtoUTF7" />
+			<wsdl:input name="SGMLtoUTF7Request">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:input>
+			<wsdl:output name="SGMLtoUTF7Response">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.racai.ro/pdk/ttlws" use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="TTL">
+		<wsdl:port binding="impl:pdkTtlwsSoapBinding" name="TTLWS">
+			<wsdlsoap:address location="http://ws.racai.ro:8080/pdk/ttlws" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

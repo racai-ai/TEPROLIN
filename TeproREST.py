@@ -1,4 +1,5 @@
 import platform
+import os
 from multiprocessing import freeze_support
 from http import HTTPStatus
 from flask import Flask, request, send_from_directory
@@ -202,50 +203,47 @@ class TeproTerminate(Resource):
                 int(HTTPStatus.FORBIDDEN))
 
 
-# If you run this with uwsgi in Linux, comment out the line
-# 'if __name__ == "__main__":' and unindent its block!
-# Also, comment out the app.run() line!
-if __name__ == "__main__":
-    # Call freeze_support() first in Windows...
-    if platform.system() == "Windows":
-        freeze_support()
+# Call freeze_support() first in Windows...
+if platform.system() == 'Windows':
+    freeze_support()
 
-    # The Teprolin object.
-    # This one is configured and used
-    # for processing operations.
-    tepro = Teprolin()
-    app = Flask(__name__)
-    # Configure flask_restful to jsonify
-    # arbitrary objects.
-    app.config['RESTFUL_JSON'] = {
-        'default': lambda x: x.__dict__,
-        'ensure_ascii': False,
-        'sort_keys': True,
-        'indent': 2
-    }
-    api = Api(app)
+# The Teprolin object.
+# This one is configured and used
+# for processing operations.
+tepro = Teprolin()
+app = Flask(__name__)
+# Configure flask_restful to jsonify
+# arbitrary objects.
+app.config['RESTFUL_JSON'] = {
+    'default': lambda x: x.__dict__,
+    'ensure_ascii': False,
+    'sort_keys': True,
+    'indent': 2
+}
+api = Api(app)
 
-    # GET the available algorithms for
-    # the given operation
-    api.add_resource(TeproNLPApps, '/apps/<string:oper>', resource_class_args=[tepro])
-    # GET the available operations for the
-    # platform
-    api.add_resource(TeproOperations, '/operations')
+# GET the available algorithms for
+# the given operation
+api.add_resource(TeproNLPApps, '/apps/<string:oper>', resource_class_args=[tepro])
+# GET the available operations for the
+# platform
+api.add_resource(TeproOperations, '/operations')
 
-    # GET the available statistics tables per
-    # time interval: year, month or day and per
-    # type of statistics: token, char or request
-    api.add_resource(
-        TeproStats, '/stats/<string:svalue>/<string:tvalue>/<int:hsize>', resource_class_args=[tepro])
+# GET the available statistics tables per
+# time interval: year, month or day and per
+# type of statistics: token, char or request
+api.add_resource(
+    TeproStats, '/stats/<string:svalue>/<string:tvalue>/<int:hsize>', resource_class_args=[tepro])
 
-    # POSTs the data for configuration and processing
-    api.add_resource(TeproREST, '/process', resource_class_args=[tepro])
+# POSTs the data for configuration and processing
+api.add_resource(TeproREST, '/process', resource_class_args=[tepro])
 
-    # The index.html help page
-    api.add_resource(TeproHelpIndex, '/')
-    api.add_resource(TeproHelpPNG, '/images/<string:img>')
-    api.add_resource(TeproFavicon, '/favicon.ico')
+# The index.html help page
+api.add_resource(TeproHelpIndex, '/')
+api.add_resource(TeproHelpPNG, '/images/<string:img>')
+api.add_resource(TeproFavicon, '/favicon.ico')
 
+if os.environ.get('TEPROLIN_DOCKER') is None and platform.system() != 'Linux':
     # If you run this with uwsgi, comment out the next 2 lines!
     api.add_resource(TeproTerminate, '/server-shutdown-now')
     app.run(host='0.0.0.0', port=5000)

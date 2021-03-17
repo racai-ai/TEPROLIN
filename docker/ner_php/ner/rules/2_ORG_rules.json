@@ -1,0 +1,12 @@
+{"rules":[
+
+{
+    "match":[
+      {"ner":"O","max":1},
+      {"ner":"PER|LOC","lemma":"consiliul|consiliu|uniunea|uniune|partid|partidul|parlamentul|guvernul|securitate|senat|guvern|parlament|fundație|hotel","id":"0"},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+}
+
+]}

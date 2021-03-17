@@ -1,0 +1,30 @@
+{"rules":[
+
+{
+    "match":[
+      {"ner":"TIME","max":1},
+    	{"lemma":"cât|,","min":0},
+    	{"lemma":"și|sau"},
+      {"ctag":"M","ner":"O","id":0}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+} ,
+
+{
+    "match":[
+      {"lemma":"!bun","min":0,"max":1},
+      {"lemma":"până","min":0,"id":"0"},
+      {"lemma":"răsalaltăieri|alaltăieri|ieri|azi|astăzi|acum|mâine|poimâine|răspoimâine|zi|noapte|seară|dimineață|amurg|asfințit|deceniu|secol|mileniu","id":"0"}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+},
+
+{
+    "match":[
+    	{"lemma":"luni|marți|miercuri|joi|vineri|sâmbătă|duminică", "ner":"O","id":"0"}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+}
+
+
+]}

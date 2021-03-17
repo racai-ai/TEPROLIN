@@ -1,0 +1,207 @@
+{"rules":[
+
+{
+    "match":[
+    	{"ner":"PER","id":"0"},
+    	{"word":"*","max":5,"ner":"!PER"},
+    	{"word":"fiica|fiul|mama|tatăl"},
+    	{"word":"*","max":2,"min":0,"ner":"!PER"},
+    	{"ner":"PER","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"family"}
+},
+{
+    "match":[
+    	{"ner":"PER","id":"0"},
+    	{"word":"*","max":5,"ner":"!PER"},
+    	{"word":"fata|băiatul"},
+    	{"word":"adoptivă|adoptiv"},
+    	{"word":"*","max":2,"min":0,"ner":"!PER"},
+    	{"ner":"PER","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"family"}
+},
+{
+    "match":[
+        {"word":"ducă|meargă"},
+    	  {"word":"*","ner":"!LOC"},
+    	  {"ner":"PER","id":"0"},
+    	  {"word":"*","ner":"!LOC"},
+        {"word":"la|în"},
+    	  {"ner":"LOC","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"move"}
+},
+{
+    "match":[
+    	  {"ner":"PER","id":"0"},
+    	  {"word":"*","ner":"!PER"},
+        {"word":"ducă|meargă|ajuns|mers|dus"},
+    	  {"word":"*","ner":"!LOC"},
+        {"word":"la|în"},
+    	  {"ner":"LOC","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"move"}
+},
+{
+    "match":[
+    	  {"ner":"PER","id":"0"},
+    	  {"word":"*","ner":"!PER"},
+        {"word":"întâlnească|întâlnit|invitat|invita|invită"},
+    	  {"word":"*","ner":"!PER"},
+        {"word":"pe|cu"},
+    	  {"ner":"PER","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"meet"}
+},
+{
+    "match":[
+    	  {"ner":"PER","id":"0"},
+    	  {"word":"de_la"},
+    	  {"ner":"ORG","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"work"}
+},
+{
+    "match":[
+    	  {"ner":"PER","id":"0"},
+    	  {"word":"al"},
+    	  {"ner":"LOC","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"represents"}
+},
+{
+    "match":[
+    	  {"ner":"ORG","id":"0"},
+    	  {"word":"*","ner":"!ORG","min":0,"max":5},
+    	  {"word":"din"},
+    	  {"ner":"LOC","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"from"}
+},
+{
+    "match":[
+    	  {"ner":"PER","id":"0"},
+    	  {"word":"din|al"},
+    	  {"ner":"LOC","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"from"}
+},
+
+{
+    "match":[
+    	  {"ner":"PER","id":"0"},
+        {"word":","},
+        {"word":"*","max":2},
+        {"lemma":"stabili|locui|domicila"},
+        {"word":"*","max":5},
+        {"word":"în"},
+    	  {"ner":"LOC","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"from"}
+},
+
+{
+    "match":[
+    	  {"ner":"ORG","id":"0"},
+    	  {"word":"*","ner":"!ORG"},
+    	  {"word":"cumpărat|vândut|ofertat"},
+    	  {"word":"*","ner":"!ORG"},
+    	  {"ner":"ORG","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"business"}
+},
+{
+    "match":[
+    	  {"ner":"LOC","id":"0"},
+    	  {"word":","},
+    	  {"ner":"LOC","id":"1"},
+        {"word":","},
+    	  {"ner":"!LOC","min":1,"max":1}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"part_of"}
+},
+{
+    "match":[
+    	  {"ner":"LOC","id":"0"},
+    	  {"word":","},
+    	  {"ner":"LOC","id":"1"},
+        {"word":"."}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"part_of"}
+},
+
+{
+    "match":[
+        {"lemma":"în","min":0},
+    	  {"ner":"LOC","id":"0"},
+    	  {"word":","},
+        {"lemma":"la","min":0},
+    	  {"ner":"LOC","id":"1"}
+    ],
+    "result":{"ent1":"1",	"ent2":"0",	"type":"part_of"}
+},
+
+{
+    "match":[
+        {"lemma":"șef|lider|reprezentant|angajat|patron|manager|președinte"},
+    	  {"ner":"ORG","id":"0"},
+    	  {"word":","},
+    	  {"ner":"PER","id":"1"}
+    ],
+    "result":{"ent1":"1",	"ent2":"0",	"type":"work"}
+},
+
+{
+    "match":[
+    	  {"ner":"PER","id":"1"},
+    	  {"word":","},
+        {"lemma":"șef|lider|reprezentant|angajat|patron|manager|președinte"},
+    	  {"ner":"ORG","id":"0"}
+    ],
+    "result":{"ent1":"1",	"ent2":"0",	"type":"work"}
+},
+
+{
+    "match":[
+    	  {"ner":"TIME","id":"0"},
+    	  {"word":","},
+        {"lemma":"pe","min":0},
+    	  {"ner":"TIME","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"related"}
+},
+
+{
+    "match":[
+    	  {"ner":"TIME","id":"0"},
+    	  {"word":"("},
+    	  {"ner":"TIME","id":"1"},
+        {"word":"!)","ctag":"!V3","min":0},
+    	  {"word":")"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"related"}
+} ,
+
+{
+    "match":[
+    	  {"ner":"ORG","id":"0"},
+    	  {"word":"("},
+    	  {"ner":"ORG","id":"1"},
+    	  {"word":")"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"related"}
+},
+
+{
+    "match":[
+    	  {"ner":"ORG","id":"0"},
+    	  {"word":"al","ner":"O"},
+    	  {"ner":"ORG","id":"1"}
+    ],
+    "result":{"ent1":"0",	"ent2":"1",	"type":"belongs_to"}
+}
+
+
+
+]}

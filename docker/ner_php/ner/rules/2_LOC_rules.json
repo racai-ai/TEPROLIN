@@ -1,0 +1,12 @@
+{"rules":[
+
+{
+    "match":[
+      {"or":[{"ner":"O"},{"ctag":"DASH"}],"max":1,"id":"1"},
+      {"ner":"PER|ORG|O","lemma":"DN1|DN2|DN3|DN4|DN5|DN6|DN7|capitală|China|Japonia|Oradea|Iași|Cluj-Napoca|Dubai|România|Sebeș|Deva|Turda|București|Cluj|Sibiu|Constanța|Melbourne|Câmpina|Predeal|Sinaia|Chișinău|Rusia|Moldova|Ungaria|Austria|Anglia|Europa|America|Australia|Africa","id":"0"},
+      {"or":[{"ner":"O"},{"ctag":"DASH"}],"max":1,"id":"1"}
+    ],
+    "result":[{"id":"0","type":"LOC"},{"id":"1","type":"O"}]
+}
+
+]}

@@ -1,0 +1,22 @@
+{"rules":[
+
+{
+    "match":[
+      {"ner":"PER|ORG", "lemma":"!arenă", "min":0, "id":"0"},
+      {"ner":"PER|ORG", "lemma":"arenă", "id":"0"},
+      {"ner":"PER|ORG", "min":0, "id":"0"}
+    ],
+    "result":[{"id":"0","type":"LOC"}]
+} ,
+
+{
+    "comment":"SE REPETA IN 3_LOC_RULES",
+    "match":[
+      {"ner":"O","max":1},
+      {"lemma":"cartier|sat|oraș|comună|municipiu|stradă|șosea|centură|drum|autostradă","id":"0"},
+      {"ner":"!O","or":[{"word":"!::SUFFIX:ei"},{"ner":"ORG"}],"id":"0"}
+    ],
+    "result":[{"id":"0","type":"LOC"}]
+}
+
+]}

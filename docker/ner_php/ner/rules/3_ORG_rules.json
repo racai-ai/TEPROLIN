@@ -1,0 +1,72 @@
+{"rules":[
+
+{
+    "comment":"NU MERGE CU |::SUFFIX:iilor|::SUFFIX:elor din cauza infectiilor,etc.",
+    "match":[
+      {"or":[
+        {"lemma":"comisie|agenție|coaliție|parlament|guvern|tribunal|spital|institut|universitate|academie|alianță|primărie|fundație|hotel"},
+        {"word":"parchetelor|judecătoriilor"}
+      ],"ner":"O","id":"0","max":1}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"ner":"ORG","word":"::LOWERCASE","max":1},
+      {"word":"de","min":0,"id":"0"},
+      {"ner":"O","word":"!::LOWERCASE","id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"ner":"ORG","lemma":"comisie|firmă","max":1},
+      {"word":"de","id":"0"},
+      {"ner":"ORG","max":1}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"ner":"ORG","max":1},
+      {"word":"("},
+      {"ner":"O","word":"!::LOWERCASE", "id":"0"},
+      {"word":")"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|LOC","id":"0","min":0,"lemma":"!partid"},
+      {"ner":"PER|LOC","lemma":"partid|alianță","id":"0"},
+      {"ner":"PER|LOC","min":0,"id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|LOC","id":"0","min":0,"lemma":"!alianță"},
+      {"ner":"PER|LOC","lemma":"alianță","id":"0"},
+      {"ner":"PER|LOC","min":0,"id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|LOC","min":0,"lemma":"!comisie"},
+      {"ner":"PER|LOC","lemma":"comisie","id":"0"},
+      {"ner":"PER|LOC","min":0,"id":"0"}
+    ],
+    "result":[{"id":"0","type":"ORG"}]
+}
+
+
+
+
+]}

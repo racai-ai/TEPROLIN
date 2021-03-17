@@ -1,0 +1,12 @@
+{"rules":[
+
+{
+    "match":[
+      {"ner":"O","max":1},
+      {"ner":"LOC|ORG","lemma":"Halep|Williams","id":"0"},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"PER"}]
+}
+
+]}

@@ -1,0 +1,217 @@
+{"rules":[
+
+{
+    "match":[
+      {"word":"<s>","ner":"!O","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"word":"<s>"},
+      {"ctag":"DBLQ","min":0,"id":"0"},
+      {"or":[
+          {"ctag":"R|CR|M|S|ASN|ASRY|C"},
+          {"lemma":"stadiu|tronson|nod|prosteală|golăneală|jaf|revoluție|revoltă|furt|fenomen|soluție|aplicație|program|software|hardware|notă|mențiune|licitație|examen|test|garanție|proces|activitate|traseu|audiere|păstrare|credibilitate|practică|dată|presa|ședință|Defector|anunț|existență|tentativă|cerință|evoluție|sponsorizare|parteneriat|candidat|rol|efect|demers|contestare|libertate|protest|scrisoare|act|eșec|partidă|conflict|stop|start|cinste|declarație|informație|acesta|șef|fiecare|memorandum|potrivit|manager|fotografie|meniu|ultima|început|sfârșit|final|insistență|contestație|condamnat|valoare|provocare|control|funcție|spațiu|retragere|abuz|construire|dezbatere|vot|scrutin|procedură|necesitate|hotărâre|rest|articol|UPDATE|o|un"},
+          {"word":"::SUFFIX:iile|::SUFFIX:ele|::SUFFIX:ile"}
+      ],"ner":"!O|!TIME","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"word":"<s>"},
+      {"ctag":"DBLQ","min":0,"id":"0"},
+      {"msd2":"Nc","word":"::SUFFIX:ea","ner":"!O|!TIME","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"word":"<s>"},
+      {"ctag":"DBLQ","min":0,"id":"0"},
+      {"ner":"!O|!TIME","id":"0","max":1},
+      {"word":"că|căci"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"word":".|!|?","min":0,"id":"0"},
+      {"word":"</s>","ner":"!O","id":"0","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"word":"grand","id":"0"},
+      {"word":"slam","id":"1"}
+    ],
+    "result":[{"id":"0","type":"O"},{"id":"1","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"O","id":"0"},
+      {"msd2":"Vm|Va","ner":"!O","id":"1"}
+    ],
+    "result":[{"id":"1","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"PER", "max":1},
+      {"ner":"PER","word":"i-","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|ORG", "word":"!::LOWERCASE", "max":1},
+      {"ner":"PER|ORG","word":"în","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O", "lemma":"ordonanță", "id":"0"},
+      {"ner":"!O", "lemma":"de", "id":"0"},
+      {"ner":"!O", "lemma":"urgență", "id":"0"},
+      {"ner":"!O", "id":"0","min":0}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O", "lemma":"ordonanță|hotărâre|procedură", "id":"0"},
+      {"ner":"!O", "id":"0","min":0}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+
+{
+    "match":[
+      {"ner":"O", "max":1},
+      {"ner":"ORG", "lemma":"raport", "id":"0"},
+      {"ner":"ORG", "lemma":"al", "id":"0","min":0},
+      {"ner":"ORG", "max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O", "word":"!open","id":"0"},
+      {"ner":"!O", "word":"open", "id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"LOC", "word":"::LOWECASE","id":"0","min":0},
+      {"ner":"LOC", "ctag":"S", "id":"0"},
+      {"ner":"LOC","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O","lemma":"constituție|lege|ordonanță|hotărâre|decizie|OUG|HG|referendum|criteriu|comunicat|raport|versus|articol|revoluție","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"ORG","word":"!al"},
+      {"word":"al","id":"0"},
+      {"ner":"ORG","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O","max":1,"msd2":"!Vm"},
+      {"ner":"!O","msd2":"Vm","id":0},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|LOC|ORG","max":1,"word":"!dar"},
+      {"ner":"PER|LOC|ORG","word":"dar","id":0},
+      {"ner":"PER|LOC|ORG","word":"și","id":0}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+
+{
+    "match":[
+      {"ner":"!O","max":1,"ctag":"!R"},
+      {"ner":"!O","ctag":"R","id":0},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O","max":1,"ctag":"!QZ"},
+      {"ner":"!O","ctag":"QZ","id":0},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+
+{
+    "match":[
+      {"ner":"!O","max":1,"word":"!îi"},
+      {"ner":"!O","word":"îi","id":0},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"word":"la","id":"0"},
+      {"ner":"!O","word":"!cu"},
+      {"ner":"!O","word":"cu","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"O","max":1},
+      {"ner":"!O","or":[{"lemma":"independență|brexit|brexitul|acord|tratat"},{"word":"gdpr|cookies|SUV|USD|TVA"}],"id":"0"},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|LOC", "word":"::SUFFIX:gate", "id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+}
+
+
+]}

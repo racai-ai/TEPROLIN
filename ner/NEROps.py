@@ -12,6 +12,13 @@ class NEROps(TeproApi):
     def __init__(self):
         super().__init__()
         self._algoName = TeproAlgo.algoNER
+        print("{0}.{1}[{2}]: using NER server at {3}".
+                format(
+                    Path(inspect.stack()[0].filename).stem,
+                    inspect.stack()[0].function,
+                    inspect.stack()[0].lineno,
+                    GENERALNERURL
+                ), file=sys.stderr, flush=True)
 
     def _prepareSentences(self, dto) -> str:
         result = []

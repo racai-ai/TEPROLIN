@@ -37,3 +37,7 @@ UDPIPEMODELFILE = TEPROLIN_RESOURCES_FOLDER + os.sep + \
 
 # Provided by Vasile; localhost for the Docker container.
 GENERALNERURL = 'http://89.38.230.23/ner/ner.php'
+
+# Automatically set the the Dockerfile build file
+if os.environ.get('TEPROLIN_DOCKER') is not None:
+    GENERALNERURL = 'http://127.0.0.1/ner/ner.php'

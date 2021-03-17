@@ -57,7 +57,8 @@ class Teprolin(object):
     statsUpdateCounts = 10
     resourcesDownloadLink = "https://relate.racai.ro/resources/teprolin/teprolin-resources.zip"
 
-    def _installResources(self):
+    @staticmethod
+    def _installResources():
         """This method will check for the existence of the .teprolin folder
         in the user's home folder. If there's no such folder, it is created
         and resources are downloaded from RACAI's servers."""
@@ -117,7 +118,7 @@ class Teprolin(object):
 
     def _startApps(self):
         """When you add a new NLP app, don't forget to add it here as well!"""
-        self._installResources()
+        Teprolin._installResources()
 
         tn = TextNorm()
         dr = DiacRestore()

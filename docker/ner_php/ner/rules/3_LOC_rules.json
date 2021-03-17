@@ -1,0 +1,22 @@
+{"rules":[
+
+{
+    "match":[
+      {"lemma": "țară|oraș|județ|sat|comună|continent|cartier", "ner":"O", "id":"0"},
+      {"lemma": "meu|lui", "ner":"O","id":"0"}
+    ],
+    "result":[{"id":"0","type":"LOC"}]
+},
+
+{
+    "comment":"SE REPETA IN 1_LOC_RULES",
+    "match":[
+      {"ner":"O","max":1},
+      {"lemma":"cartier|sat|oraș|comună|com.|municipiu|mun.|județ|stradă|str.|șosea|Șos.|bulevard|bvd.|alee|centură|drum|autostradă","id":"0"},
+      {"ner":"!O","or":[{"word":"!::SUFFIX:ei"},{"ner":"ORG"}],"id":"0"}
+    ],
+    "result":[{"id":"0","type":"LOC"}]
+}
+
+
+]}

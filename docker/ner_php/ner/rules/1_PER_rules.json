@@ -1,0 +1,24 @@
+{"rules":[
+
+{
+    "match":[
+      {"ner":"O","max":1},
+      {"lemma":"jurnalist|magistrat|judecător|judecătoare|colonel|locotenent|general|sergent|șefă|șef|-șef|primar|ministru|profesor|doctor|premier|reprezentant|delegat|epidemiolog|vicepremier|președinte|vicepreședinte|medic|avocat|senator|parlamentar|procuror|angajat|chirurg","id":"0"},
+      {"ner":"!O","id":"0"}
+    ],
+    "result":[{"id":"0","type":"PER"}]
+},
+
+{
+    "match":[
+      {"ner":"PER"},
+      {"lemma":","},
+      {"ner":"PER"},
+      {"lemma":"și"},
+      {"ner":"ORG|LOC","id":0}
+    ],
+    "result":[{"id":"0","type":"PER"}]
+}
+
+
+]}

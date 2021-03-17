@@ -1,0 +1,241 @@
+{"rules":[
+
+{
+    "match":[
+      {"ner":"O|TIME","max":1},
+      {"ner":"PER|ORG|LOC","word":"::LOWERCASE|Robor","id":"0"},
+      {"ner":"O|TIME","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"O|ORG|LOC|TIME","max":1},
+      {"ner":"PER","word":"::LOWERCASE","id":"0"},
+      {"ner":"O|ORG|LOC|TIME","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"O|PER|LOC|TIME","max":1},
+      {"ner":"ORG","word":"::LOWERCASE","id":"0"},
+      {"ner":"O|PER|LOC|TIME","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"O|ORG|PER|TIME","max":1},
+      {"ner":"LOC","word":"::LOWERCASE","id":"0"},
+      {"ner":"O|ORG|PER|TIME","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O","max":1,"min":0},
+      {"lemma":"::_:de_către|::_:în_general|::_:din_partea","id":"0"},
+      {"ner":"!O","max":1,"min":0}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+
+{
+    "match":[
+      {"ner":"O|TIME","max":1},
+      {"ner":"ORG|PER","word":"::LOWERCASE","id":"0"},
+      {"ner":"ORG|PER|LOC|O|TIME","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|ORG|LOC","lemma":"!,"},
+      {"ner":"PER|ORG|LOC","lemma":",","id":"0"},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|ORG|LOC","max":1},
+      {"ner":"PER|ORG|LOC","lemma":"referitor","id":"0"},
+      {"ner":"O|TIME","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+
+{
+    "match":[
+      {"ner":"PER|ORG|LOC","max":1},
+      {"ner":"PER|ORG|LOC","ctag":"PXA|S|R|Vm|QZ","id":"0"},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+
+{
+    "match":[
+      {"ner":"!O","lemma":"cod","id":"0"},
+      {"lemma":"rutier|civil|penal","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O","ctag":"LPAR|RPAR","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"word":"mai","ner":"TIME","id":"0"},
+      {"lemma":"bine|rău|mult|puțin","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|ORG|LOC", "max":1},
+      {"ner":"PER|ORG|LOC","ctag":"RELR|QN|S|DASH|PERIOD|RELO|CR|PXD|QN","word":"::LOWERCASE","id":"0"},
+      {"ner":"O|TIME","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O","lemma":"diabet|cancer|limfom|colită|ulcerativ|pulmonar|urotelial|artrită|boală|psoriazic|statut|infecție|obturație","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O","ctag":"DBLQ"},
+      {"ner":"!O","ctag":"!DBLQ","id":"1"},
+      {"ner":"O","ctag":"DBLQ","id":"0"}
+      
+    ],
+    "result":[{"id":"0","type":":1"}]
+},
+
+{
+    "match":[
+      {"ner":"O","ctag":"DBLQ","id":0},
+      {"ner":"!O","ctag":"!DBLQ","id":"1"},
+      {"ner":"!O","ctag":"DBLQ"}
+      
+    ],
+    "result":[{"id":"0","type":":1"}]
+},
+
+{
+    "match":[
+      {"ner":"O|TIME"},
+      {"ner":"PER|ORG|LOC","ctag":"!DBLQ"},
+      {"ner":"PER|ORG|LOC","ctag":"DBLQ","id":"0"},
+      {"ner":"O|TIME"}
+      
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+
+{
+    "match":[
+      {"ner":"O","max":1},
+      {"ner":"!O","lemma":"justiție|pib|buget","id":0},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"LOC","lemma":"buget","id":0}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"PER|ORG|LOC","lemma":"sau","id":"0"},
+      {"ner":"PER|ORG|LOC","lemma":"pentru","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"O"},
+      {"ner":"!O","lemma":"sistem","id":"0"},
+      {"ner":"ORG","id":"0","min":0}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O","msd2":"!Va","max":1},
+      {"ner":"!O","msd2":"Va","id":"0"},
+      {"ner":"!O","msd2":"Vm","id":"0","min":0}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"ORG","lemma":"asociație|spital|organizație|institut|universitate|academie"},
+      {"ner":"ORG","word":"!și"},
+      {"ner":"ORG","word":"și","id":"0"},
+      {"ner":"ORG","lemma":"asociație|spital|organizație|institut|universitate|academie"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"ner":"!O","max":1,"word":"!îi"},
+      {"ner":"!O","word":"îi","id":0},
+      {"ner":"O","max":1}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"lemma":"cerere"},
+      {"ner":"ORG","word":"!de"},
+      {"ner":"ORG","word":"de","id":"0"},
+      {"lemma":"încuviințare|eliberare|începere","id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+},
+
+{
+    "match":[
+      {"lemma":"ședință"},
+      {"word":"de","min":0},
+      {"ner":"ORG","word":"!despre"},
+      {"ner":"ORG","lemma":"despre","id":"0"},
+      {"ner":"ORG","min":0,"id":"0"}
+    ],
+    "result":[{"id":"0","type":"O"}]
+}
+
+
+]}

@@ -1,0 +1,11 @@
+{"rules":[
+
+{
+    "match":[
+    	{"lemma":"luni|marți|miercuri|joi|vineri|sâmbătă|duminică", "ner":"O","id":"0"}
+    ],
+    "result":[{"id":"0","type":"TIME"}]
+}
+
+
+]}

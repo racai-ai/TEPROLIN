@@ -1,0 +1,47 @@
+{"rules":[
+
+{
+    "match":[
+      {"ner":"O","max":1},
+      {"lemma":"fost|actual|viitor","min":0,"id":"0"},
+      {"lemma":
+          "primul|primului|prim-|comisar|doamnă|domn|director|candidat|candidată|contracandidat|contracandidată|deputat|ambasador|europarlamentar|jurnalist|manager|magistrat|judecător|judecătoare|colonel|locotenent|general|sergent|șefă|șef|primar|ministru|profesor|doctor|premier|reprezentant|delegat|epidemiolog|vicepremier|președinte|vicepreședinte|medic|avocat|senator|parlamentar|procuror|angajat|chirurg",
+        "msd2":"!Af",
+        "id":"0"},
+      {"lemma":
+          "comisar|doamnă|domn|director|candidat|candidată|contracandidat|contracandidată|deputat|ambasador|europarlamentar|jurnalist|manager|magistrat|judecător|colonel|locotenent|general|sergent|-șefă|șefă|șef|-șef|primar|ministru|profesor|doctor|premier|reprezentant|delegat|epidemiolog|vicepremier|președinte|vicepreședinte|medic|avocat|senator|parlamentar|procuror|angajat|chirurg",
+        "id":"0","min":0},
+      {"lemma":"interimar|adjunct|stat|executiv","min":0,"id":"0"},
+      {"ner":"O|ORG|LOC|PER|TIME","max":1,"and":[{"lemma":"!plan"},{"lemma":"!loc"}]}
+    ],
+    "result":[{"id":"0","type":"PER"}]
+},
+
+{
+    "match":[
+      {"word":"eu|tu|el|ea|voi|ei|altcineva","msd2":"Pp|Pi|Pd","ner":"O","id":"0"}
+    ],
+    "result":[{"id":"0","type":"PER"}]
+},
+
+{
+    "match":[
+      {"word":"noi","msd2":"Pp|Pi|Pd","ner":"O","id":"0"},
+      {"and":[{"msd":"!::PREFIX:Ncfp"},{"msd":"!::PREFIX:Ncmp"}],"max":1}
+    ],
+    "result":[{"id":"0","type":"PER"}]
+},
+
+
+{
+    "match":[
+      {"ner":"O","max":1},
+      {"lemma":"doamnă|domn|jurnalist|magistrat|judecător|colonel|locotenent|general|sergent|șefă|șef|primar|ministru|profesor|doctor|premier|reprezentant|delegat|epidemiolog|vicepremier|președinte|vicepreședinte|medic|avocat|senator|parlamentar|procuror|angajat|chirurg","id":"0"},
+      {"ner":"!O","word":"!::SUFFIX:ului","id":"0"}
+    ],
+    "result":[{"id":"0","type":"PER"}]
+}
+
+
+
+]}
