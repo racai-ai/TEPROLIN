@@ -4,6 +4,9 @@ It is described in the following paper ([click to read it from the conference pr
 
 **Ion**, **Radu**. (2018). _**TEPROLIN**: An Extensible, Online Text Preprocessing Platform for Romanian_. In Proceedings of the International Conference on Linguistic Resources and Tools for Processing Romanian Language (ConsILR 2018), November 22-23, 2018, Iași, România.
 
+## Online testing
+For a quick test session, using small texts (say up to 1000 chars), head to [RELATE's](https://relate.racai.ro) [test page](https://relate.racai.ro/index.php?path=teprolin/complete). If you want to test different algorithms (e.g. UD-Pipe vs. NLP-Cube), you can access [this link](https://relate.racai.ro/index.php?path=teprolin/custom).
+
 ## Installation
 **Teprolin** only works with `Python 3` and it has been tested with `Python 3.6` on `Windows 10` and with `Python 3.5` on `Linux Ubuntu 16.04/xenial`. **Teprolin** includes the [**TTL** text pre-processor](http://www.racai.ro/media/WSD.pdf) which runs in `Perl`. In Windows, we used [Strawberry Perl](http://strawberryperl.com/) and in Ubuntu, the default `perl` installation.
 
