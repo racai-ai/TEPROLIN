@@ -378,13 +378,13 @@ class Teprolin(object):
         self._requests += 1
         configuredApps = []
 
-        # 2.1 Dynamically alter the configuration
+        # 2.1 Resolve all operation dependencies
+        expandedOps = TeproAlgo.resolveDependencies(ops)
+
+        # 3.1 Dynamically alter the configuration
         # depending on exceptions. For instance
         # ner-icia requires ttl-icia, not nlp-cube-adobe
-        TeproAlgo.reconfigureWithStrictRequirements(self._conf)
-
-        # 3.1 Resolve all operation dependencies
-        expandedOps = TeproAlgo.resolveDependencies(ops)
+        TeproAlgo.reconfigureWithStrictRequirements(self._conf, expandedOps)
 
         # 3.2 Get instantiated apps for the requested operations.
         # Apps are added in the order provided by expandedOps,

@@ -10,6 +10,7 @@ text3 = "Instanta suprema reia astazi judecarea."
 text4 = "Diabetul zaharat este un sindrom caracterizat prin valori crescute ale concentratiei \
     glucozei in sange (hiperglicemie) si dezechilibrarea metabolismului."
 text5 = "Aceasta este propoziția 123 de test și nu-ți dă cu virgulă ca în 45.631."
+text6 = "Intel Celeron N4020"
 
 def test_TextNorm():
     dto = tepro.pcExec(text, [TeproAlgo.getTextNormOperName()])
@@ -177,3 +178,12 @@ def test_BioNEROps():
     assert dto.getSentenceTokens(0)[4].getBioNER() == 'B-DISO'
     assert dto.getSentenceTokens(0)[11].getBioNER() == 'B-CHEM'
     assert dto.getSentenceTokens(0)[13].getBioNER() == 'B-ANAT'
+
+def test_AutoReconfiguration():
+    dto = tepro.pcFull(text6)
+
+    assert tepro.getConfiguration(TeproAlgo.getSentenceSplittingOperName()) == TeproAlgo.algoTTL
+    assert tepro.getConfiguration(TeproAlgo.getTokenizationOperName()) == TeproAlgo.algoTTL
+    assert tepro.getConfiguration(TeproAlgo.getPOSTaggingOperName()) == TeproAlgo.algoTTL
+    assert tepro.getConfiguration(TeproAlgo.getChunkingOperName()) == TeproAlgo.algoTTL
+    assert dto.getSentenceTokens(0)[0].getMSD() == 'Np'

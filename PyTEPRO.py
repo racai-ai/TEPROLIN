@@ -10,6 +10,11 @@ def main():
     # 1. Create the object
     tepro = Teprolin()
 
+    # 0.9 Test NER auto-configuration
+    text = "Intel Celeron N4020"
+    dto = tepro.pcFull(text)
+    dto.dumpConllX()
+
     # 1.0 Check new TTSOps
     text = "Aceasta este propoziția 123 de test și nu-ți dă cu virgulă ca în 45.631."
     tepro.configure(TeproAlgo.getSentenceSplittingOperName(),

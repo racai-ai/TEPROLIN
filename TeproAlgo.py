@@ -264,34 +264,41 @@ class TeproAlgo(object):
             return TeproAlgo.resolveDependencies(expanded)
 
     @staticmethod
-    def reconfigureWithStrictRequirements(conf: dict) -> None:
+    def reconfigureWithStrictRequirements(conf: dict, requested: list) -> None:
         """Will check strict algorithm dependency requirements,
-        and will set them appropriately."""
+        and will set them appropriately in conf, iterating through requested."""
         requirements = TeproAlgo._getAlgorithmRequirements()
+        todo_ops = {}
 
-        for op in conf:
+        for op in requested:
             algo = conf[op]
 
             if algo in requirements:
-                ralgo = requirements[algo]
+                for ralgo in requirements[algo]:
+                    for op2 in TeproAlgo.getOperationsForAlgo(ralgo):
+                        if op2 not in todo_ops:
+                            todo_ops[op2] = ralgo
+                        elif ralgo != todo_ops[op2]:
+                            raise RuntimeError('Operation {0} is about to be rewritten with a conflicting algorithm: {1} != {2}'.format(
+                                op2, todo_ops[op2], ralgo))
+                        # end if
+                    # end for op2
+                # end for ralgo
+            # end if algo is special
+        # end for op in configuration
 
-                if TeproAlgo.canPerform(ralgo, op):
-                    conf[op] = ralgo
-                    print(("{0}.{1}[{2}]: " +
-                           "configuration exception triggered by operation '{3}' with algorithm '{4}': " +
-                           "reconfiguring operation '{5}' with algorithm '{6}'").
-                          format(
-                        Path(inspect.stack()[0].filename).stem,
-                        inspect.stack()[0].function,
-                        inspect.stack()[0].lineno,
-                        op,
-                        algo,
-                        op,
-                        ralgo
-                    ), file=sys.stderr, flush=True)
-                # end if can perform
-            # end if algo
-        # end for all ops
+        for op in todo_ops:
+            conf[op] = todo_ops[op]
+            print(("{0}.{1}[{2}]: " +
+                    "reconfiguring operation '{3}' with algorithm '{4}'").
+                    format(
+                Path(inspect.stack()[0].filename).stem,
+                inspect.stack()[0].function,
+                inspect.stack()[0].lineno,
+                op,
+                todo_ops[op]
+            ), file=sys.stderr, flush=True)
+        # end for all modified ops
   
     @staticmethod
     def _assignAlgorithmsToOperations():
