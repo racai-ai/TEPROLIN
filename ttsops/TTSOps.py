@@ -3,7 +3,6 @@ import sys
 import platform
 import inspect
 from pathlib import Path
-from time import sleep
 import os
 from time import sleep
 from multiprocessing import Process, freeze_support
@@ -123,15 +122,25 @@ class TTSOps(TeproApi):
 
         while True:
             mlplaBytes.append(b)
-            lastK = b''.join(mlplaBytes).decode('utf-8')
+
+            try:
+                lastK = b''.join(mlplaBytes).decode(encoding='utf-8')
+            except UnicodeDecodeError:
+                # Maybe End Of Buffer in the middle of utf-8 encoding...
+                b = s.recv(1024)
+                continue
+            # end try
 
             if TTSOps.eotRegex.search(lastK):
                 break
+            # end if
 
-            b = s.recv(1024)
+            b = s.recv(4096)
+        # end while
 
         # 3. Extract annotated info from the returned text.
-        mlplaText = b''.join(mlplaBytes).decode('utf-8')
+        # Ignore utf-8 decoding errors
+        mlplaText = b''.join(mlplaBytes).decode(encoding='utf-8', errors='ignore')
         mlplaLines = re.split(r'\r?\n', mlplaText)
         result = []
 
