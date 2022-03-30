@@ -144,7 +144,24 @@ public class MLPLAServer {
 							StringBuilder result = new StringBuilder();
 
 							for (String ol : olines) {
-								String[] parts = ol.split("\\t+");
+								String[] parts = ol.trim().split("\\t+");
+								
+								if (parts.length < 5) {
+									// We do not have the same number of fields.
+									// Just put something in place and go next.
+									System.err.println(String.format("MLPLA error: got wrong line [%s]", ol));
+									
+									result.append(parts[0]);
+									result.append("\t");
+									result.append("_");
+									result.append("\t");
+									result.append("_");
+									result.append("\t");
+									result.append("_");
+									result.append("\n");
+									continue;
+								}
+								
 								String wordform = parts[0];
 								String syllables = parts[3];
 								String phonetic = parts[4];
