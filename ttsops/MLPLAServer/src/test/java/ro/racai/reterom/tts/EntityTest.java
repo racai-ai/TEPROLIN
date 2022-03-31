@@ -18,7 +18,11 @@ public class EntityTest {
     
     @Test
     public void testBug1() {
-        assertEquals("9892013201820232019",
-                SayEntities.sayNumber("9892013201820232019"));
+        assertEquals("9892013201820232019", SayEntities.sayNumber("9892013201820232019"));
+    }
+    
+    @Test
+    public void testBug2() {
+        assertEquals("9892013201820232019 virgulă nouă opt nouă doi zero unu trei doi zero unu opt doi zero doi trei doi zero unu nouă", SayEntities.sayNumber("9892013201820232019,9892013201820232019"));
     }
 }

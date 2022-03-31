@@ -162,17 +162,16 @@ public class SayEntities {
 			}
 		} else if (NUMBER_RX2.matcher(number).matches()) {
 			String[] parts = number.split("[,.]");
-			int decimalPart = Integer.parseInt(parts[1]);
+			String decimalPart = parts[1];
 
-			if (decimalPart > 0) {
+			if (decimalPart.matches("^.*[1-9].*$")) {
 				String p1 = sayNumber(parts[0]) + " virgulă ";
-				String decimal = parts[1];
 
-				if (decimal.startsWith("0") || decimal.length() > 4) {
+				if (decimalPart.startsWith("0") || decimalPart.length() > 4) {
 					List<String> p2List = new ArrayList<>();
 
-					for (int i = 0; i < decimal.length(); i++) {
-						String c = new String(new char[] {decimal.charAt(i)});
+					for (int i = 0; i < decimalPart.length(); i++) {
+						String c = new String(new char[] {decimalPart.charAt(i)});
 
 						p2List.add(sayNumber(c));
 					}
@@ -180,7 +179,7 @@ public class SayEntities {
 					return p1 + String.join(" ", p2List);
 				}
 				else {
-					return p1 + sayNumber(decimal);
+					return p1 + sayNumber(decimalPart);
 				}
 			}
 			else {
