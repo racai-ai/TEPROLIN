@@ -12,6 +12,13 @@ public class EntityTest {
                 SayEntities.sayNumber("128.123"));
         assertEquals("o sută treizeci și unu virgulă doisprezece", SayEntities.sayNumber("131.12"));
         assertEquals("o sută virgulă unu", SayEntities.sayNumber("100.1"));
-        assertEquals("zero virgulă o mie patru sute douăzeci și patru", SayEntities.sayNumber("0,1424"));
+        assertEquals("zero virgulă o mie patru sute douăzeci și patru",
+                SayEntities.sayNumber("0,1424"));
+    }
+    
+    @Test
+    public void testBug1() {
+        assertEquals("9892013201820232019",
+                SayEntities.sayNumber("9892013201820232019"));
     }
 }

@@ -48,12 +48,15 @@ public class SayEntities {
 		NUMBERS.put(90, "nouăzeci");
 	}
 
+	private SayEntities() {}
+
 	public static String sayNumber(String number) {
 		number = number.trim();
 		number = number.replaceAll("\\s+", "");
 		number = number.replaceAll("[_]+", "");
-
-		if (NUMBER_RX.matcher(number).matches()) {
+		
+		// Avoid saying numbers such as 89766453525467574
+		if (NUMBER_RX.matcher(number).matches() && number.length() <= 6) {
 			int integer = Integer.parseInt(number);
 
 			if (integer >= 0 && integer <= 20) {
